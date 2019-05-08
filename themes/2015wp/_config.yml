@@ -39,7 +39,7 @@ google_analytics: true
 # Disqus
 disqus:
   enable: true
-  shortname: inokinoki
+  shortname: inokinoki-kde
   count: true
 # changyan
 changyan:
