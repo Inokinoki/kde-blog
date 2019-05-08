@@ -1,0 +1,35 @@
+<html>
+<!-- Head tag -->
+<%- partial('_partial/head') %>
+<body>
+	<div id="site" class="site">
+		<div id="sidebar" class="sidebar">
+			<%- partial('_partial/sidebar') %>
+		</div>
+		<div id="content" class="site-content">
+			<main id="main" class="site-main" role="main">
+				<%- body %>
+			</main>
+		</div>
+		<footer id="colophon" class="site-footer">
+			<div class="site-info">
+				<span>powered by <a href="https://hexo.io/">Hexo</a>&nbsp;&nbsp; theme by <a href="https://github.com/Troy-Yang/hexo-theme-twentyfifteen-wordpress">Troy</a> &nbsp; inspired by <a href="https://wordpress.org/themes/">wordpress</a></span>
+			</div><!-- .site-info -->
+		</footer>
+	</div>
+	<!-- <div id="infinite-footer">
+            <div class="container">
+                <div class="blog-info">
+                    <a id="infinity-blog-title" href="#" rel="home" title="Scroll back to top">
+                         Happy Coding, Happy Life!
+                    </a>
+                </div>
+                <div class="blog-credits">
+					<span>蜀ICP备15004900号-1</span>
+                </div>
+            </div>
+        </div>#infinite-footer -->
+    <!-- After footer scripts -->
+    <%- partial('_partial/after-footer') %>
+</body>
+</html>

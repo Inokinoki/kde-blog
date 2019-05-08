@@ -1,0 +1,10 @@
+<nav>
+    <ul class="pager">
+        <% if (post.prev){ %>
+            <li><a href="<%- config.root %><%- post.prev_link %>">Previous</a></li>
+        <% } %>
+        <% if (post.next){ %>
+            <li><a href="<%- config.root %><%- post.next_link %>">Next</a></li>
+        <% } %>
+    </ul>
+</nav>

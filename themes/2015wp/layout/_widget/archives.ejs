@@ -1,0 +1,8 @@
+<% if (site.posts.length){ %>
+<aside class="widget">
+		<h3 class="widget-title"><%= __('archive_a') %></h3>		
+		<ul>
+			<%- list_archives({show_count: theme.show_count, type: theme.archive_type}) %>
+		</ul>
+	</aside>
+<% } %>

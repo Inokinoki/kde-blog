@@ -1,0 +1,6 @@
+<li>
+    <div class="inner">
+      <a class="title" href="<%- url_for(post.path) %>"><%= post.title %></a>
+      <time class="time" datetime="<%= date_xml(post.date) %>" itemprop="datePublished"><%= date(post.date, 'MMM D') %></time>
+    </div>
+</li>

@@ -1,0 +1,40 @@
+<%
+	var hasPhotosClass = post.photos && post.photos.length > 0?"has-post-thumbnail":"";
+%>
+<article class="hentry <%- hasPhotosClass%>">
+		<%- partial('components/gallery') %>
+		<% if (post.link || post.title){ %>
+			<header class="entry-header">
+				<h2 class="entry-title"><a class="post-title-link" href="<%- url_for(post.path) %>" rel="bookmark"><%- post.title %></a></h2>	
+			</header>
+		<% } %>
+		<!-- .entry-header -->
+		<div class="entry-content">
+			<% if (post.excerpt && index){ %>
+				<%- post.excerpt %>
+				<% if (theme.excerpt_link){ %>
+				<p class="article-more-link">
+					<a href="<%- url_for(post.path) %>#more"><%= theme.excerpt_link %></a>
+				</p>
+				<% } %>
+			<% } else { %>
+				<%- post.content %>
+			<% } %>
+		</div><!-- .entry-content -->
+		<% if (!index && theme.artical_license_statement){ %>
+			<div class="entry-content">
+				<%= theme.artical_license_statement %>
+			</div>
+		<% } %>
+		<% if (!index && post.comments){ %>
+			<div class="entry-comments">
+				<%- partial('article-comments', {post: post}) %>
+			</div>
+		<% } %>
+		<footer class="entry-footer">
+			<%- partial('article-footer', {post: post}) %>
+			<br/>
+			<a href="https://www.vultr.com/?ref=7746405"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
+		</footer><!-- .entry-footer -->
+</article>
+<%- partial('components/back-top') %>

@@ -1,0 +1,6 @@
+<%- js('js/jquery-3.1.1.min.js') %>
+<%- js('js/main.js') %>
+<%- partial('_partial/analytics/leancloud') %>
+<% if(config.search) { %>
+    <%- partial('_partial/helper/search') %>
+<% } %>

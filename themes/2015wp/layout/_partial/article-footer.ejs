@@ -1,0 +1,8 @@
+<%- partial('components/date') %>
+<% if(post.categories && post.categories.length) { %>
+	<%- partial('components/category') %>
+<% } %>
+<% if(post.tags && post.tags.length) { %>
+	<%- partial('components/tag') %>
+<% } %>		
+<%- partial('components/visitor') %>

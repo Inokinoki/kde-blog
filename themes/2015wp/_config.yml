@@ -1,0 +1,63 @@
+# ===========================================
+# Site Settings
+# ===========================================
+# Header
+site_title: Inoki's world
+site_description: 
+# ---Optional ---
+site_avatar: /images/avatar-small.png
+artical_license_statement:
+# ---End Optional ---
+menu:
+  Home: /
+  Archives: /archives
+  AboutMe: /about
+
+# display widgets
+widgets:
+# - archives
+# - search
+- social_links
+- recent_posts
+- tagcloud
+
+# widget behavior
+archive_type: 'monthly'
+show_count: true
+# Content
+excerpt_link: Read More
+# favico 
+favicon:
+
+# ===========================================
+# Miscellaneous Settings
+# ===========================================
+# Baidu Analytics
+baidu_analytics:
+# Google Analytics
+google_analytics: true
+# Disqus
+disqus:
+  enable: true
+  shortname: inokinoki
+  count: true
+# changyan
+changyan:
+  enable: false
+  appid:
+  appkey:
+# duoshuo
+duoshuo:
+  enable: false
+  shortname:
+# Visitors
+leancloud_visitors:
+  enable: true
+  app_id: QC5aQ8pUah279L1skNerLRTU-gzGzoHsz
+  app_key: mhvEFRRIuPHtjNgOXAe9axsk
+
+# Search 
+# Note: please install hexo-generator-search plugin and config the root _config.yml (not theme's _config.yml) as below value search.json(https://www.npmjs.com/package/hexo-generator-search):
+#search:
+#  path: search.json
+#  field: post

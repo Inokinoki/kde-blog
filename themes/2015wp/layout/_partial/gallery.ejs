@@ -1,0 +1,7 @@
+<% if (post.photos && post.photos.length){ %>
+	<% post.photos.forEach(function(photo, i){ %>
+      <a class="post-thumbnail" href="<%- url_for(photo) %>" rel="gallery_<%= post._id %>">
+        <img src="<%- url_for(photo) %>" itemprop="image">
+      </a>
+    <% }) %>
+<% } %>

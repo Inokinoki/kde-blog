@@ -1,0 +1,23 @@
+<header id="header" class="site-header">
+	<div class="site-branding">
+		<h1 class="site-title">
+			<% if(theme.site_avatar) { %>
+				<a href="<%- url_for(theme.site_avatar) %>" class="avatar-circle"><img src="<%- url_for(theme.site_avatar) %>" /></a>
+			<% }%>
+			<a href="<%- url_for(config.root) %>" rel="home"><%= theme.site_title %></a></h1>
+		<p class="site-description"><%= theme.site_description %></p>
+		<button class="secondary-toggle font-asesome-icon">Menu and widgets</button>
+	</div>
+</header>
+<div id="secondary" class="secondary">
+	<nav class="main-navigation">
+                         <ul id="menu-demo-menu" class="nav-menu">
+						 <% for (var i in theme.menu){ %>
+							<li class="menu-item"><a href="<%- url_for(theme.menu[i]) %>"><%= __(i) %></a></li>
+						<% } %>
+                         </ul>
+    </nav>
+	<% theme.widgets.forEach(function(widget){ %>
+		<%- partial('../_widget/' + widget) %>
+	<% }); %>
+</div>

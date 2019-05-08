@@ -1,0 +1,33 @@
+language: node_js
+sudo: required
+node_js: 
+  - 7.9.0
+
+cache:
+  directories:
+    - node_modules
+
+branches:
+  only:
+    - hexo 
+
+#before_install:
+#  - npm install -g hexo-cli
+
+install:
+  - npm install
+    #  - cd ./themes/tranquilpeak
+    #  - npm install
+    #  - cd ../..
+#  - npm install hexo-deployer-git --save
+
+script:
+  - hexo clean
+  - hexo generate
+
+after_script:
+  - git config --global user.name "Inoki"
+  - git config --global user.email "veyx.shaw@gmail.com"
+  - sed -i "s/gh_token/${GH_TOEKN}/g" ./_config.yml
+  - hexo deploy
+# End: Build LifeCycle

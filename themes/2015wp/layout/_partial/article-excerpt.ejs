@@ -1,0 +1,12 @@
+<article class="hentry">
+		<header class="entry-header">
+			<h2 class="entry-title"><a href="<%- url_for(post.path) %>" rel="bookmark"><%- post.title %></a></h2>	
+		</header>
+		<!-- .entry-header -->
+		<div class="entry-content">
+			<% post.excerpt %>
+		</div><!-- .entry-content -->
+		<footer class="entry-footer">
+			<%- partial('article-footer', {post: post}) %>
+		</footer><!-- .entry-footer -->
+</article>

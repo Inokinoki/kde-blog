@@ -1,0 +1,5 @@
+<span class="cat-links font-asesome-icon">
+		<% post.categories.each(function(cat){ %>
+				<a href="<%- url_for(cat.path) %>" rel="category tag"><%= cat.name %></a>
+		<% }); %>
+	</span>
