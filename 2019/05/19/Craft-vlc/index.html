@@ -1,0 +1,333 @@
+<html>
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta name="google-site-verification" content="uxeL3ivCjEkmCPEWS1owNMkK9VHPxOMCjcaMHaQ38Bo">
+    <meta name="google-site-verification" content="yU7d61qsV4eAvSOazt85VJMYfiEDjZjcaXwyQKGP5Bc">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	
+		<link href="/favicon.ico" rel="icon">
+	 
+      <title>KDE Craft now delivers with vlc and libvlc on macOS | Inoki in KDE</title>
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlight.css">
+	
+	
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108089983-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108089983-2');
+</script>
+
+<!-- End Google Analytics -->
+
+<!-- Google Adsense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2713518338457470",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+</head>
+<body>
+	<div id="site" class="site">
+		<div id="sidebar" class="sidebar">
+			<header id="header" class="site-header">
+	<div class="site-branding">
+		<h1 class="site-title">
+			
+				<a href="/images/avatar-small.png" class="avatar-circle"><img src="/images/avatar-small.png"></a>
+			
+			<a href="/" rel="home">Inoki ❤️ KDE</a></h1>
+		<p class="site-description"></p>
+		<button class="secondary-toggle font-asesome-icon">Menu and widgets</button>
+	</div>
+</header>
+<div id="secondary" class="secondary">
+	<nav class="main-navigation">
+                         <ul id="menu-demo-menu" class="nav-menu">
+						 
+							<li class="menu-item"><a href="/">Home</a></li>
+						
+							<li class="menu-item"><a href="/archives">Archives</a></li>
+						
+							<li class="menu-item"><a href="/about">AboutMe</a></li>
+						
+                         </ul>
+    </nav>
+	
+		<aside class="widget social-navigation">
+    <ul>
+        <li>
+            <a href="http://twitter.com/IIInoki">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/noki.noki.10">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/inokinoki">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://linkedin.com/in/weixuan-xiao-032725108/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</aside>
+	
+		
+<aside class="widget">
+		<h3 class="widget-title">Recent Posts</h3>		
+		<ul>
+			
+          <li>
+            <a href="/2019/05/26/Craft-packager/">KDE Craft Packager on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/19/Craft-vlc/">KDE Craft now delivers with vlc and libvlc on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/09/Inoki/">About me</a>
+          </li>
+        
+		</ul>
+	</aside>
+
+
+	
+		
+  <aside class="widget">
+		<h3 class="widget-title">Tag Cloud</h3>
+        <a href="/tags/Craft/" style="font-size: 20px;">Craft</a> <a href="/tags/Inoki/" style="font-size: 10px;">Inoki</a>
+    </aside>
+
+	
+</div>
+
+		</div>
+		<div id="content" class="site-content">
+			<main id="main" class="site-main" role="main">
+				
+<article class="hentry ">
+		
+		
+			<header class="entry-header">
+				<h2 class="entry-title"><a class="post-title-link" href="/2019/05/19/Craft-vlc/" rel="bookmark">KDE Craft now delivers with vlc and libvlc on macOS</a></h2>	
+			</header>
+		
+		<!-- .entry-header -->
+		<div class="entry-content">
+			
+				<p>Lacking <code>VLC</code> and <code>libvlc</code> in <code>Craft</code>, <code>phonon-vlc</code> cannot be built successfully on macOS. It caused the failed building of <code>KDE Connect</code> in <code>Craft</code>.</p>
+<p>As a small step of my <code>GSoC</code> project, I managed to build <code>KDE Connect</code> by removing the <code>phonon-vlc</code> dependency. But it’s not a good solution. I should try to fix <code>phonon-vlc</code> building on macOS. So during the community bonding period, to know better the community and some important tools in the Community, I tried to fix <code>phonon-vlc</code>.</p>
+<h1 id="Fixing-phonon-vlc"><a href="#Fixing-phonon-vlc" class="headerlink" title="Fixing phonon-vlc"></a>Fixing phonon-vlc</h1><p>At first, I installed <code>libVLC</code> in <code>MacPorts</code>. All Header files and libraries are installed into the system path. So theoretically, there should not be a problem of the building of <code>phonon-vlc</code>. But an error occurred:</p>
+<img src="/2019/05/19/Craft-vlc/phonon-vlc-link-error.png" title="Phonon-vlc link error">
+<p>We can figure that the compiling is ok, the error is just at the end, during the linking. The error message tells us there is no <code>QtDBus</code> lib. So to fix it, I made a small patch to add QtDBus manually in the CMakeLists file.</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt</span><br><span class="line">index 47427b2..1cdb250 100644</span><br><span class="line"><span class="comment">--- a/src/CMakeLists.txt</span></span><br><span class="line"><span class="comment">+++ b/src/CMakeLists.txt</span></span><br><span class="line">@@ -81,7 +81,7 @@ if(APPLE)</span><br><span class="line"> endif(APPLE)</span><br><span class="line"> </span><br><span class="line"> automoc4_add_library(phonon_vlc MODULE $&#123;phonon_vlc_SRCS&#125;)</span><br><span class="line"><span class="deletion">-qt5_use_modules(phonon_vlc Core Widgets)</span></span><br><span class="line"><span class="addition">+qt5_use_modules(phonon_vlc Core Widgets DBus)</span></span><br><span class="line"> </span><br><span class="line"> set_target_properties(phonon_vlc PROPERTIES</span><br><span class="line">     PREFIX ""</span><br></pre></td></tr></table></figure>
+<p>And it works well!</p>
+<p>A small problem is that Hannah said she didn’t get an error during linking. It may be something about Qt version. If someone gets some idea, welcome to <a href="mailto:veyx.shaw@gmail.com" target="_blank" rel="noopener">contact me</a>.</p>
+<p>My Qt version is <code>5.12.3</code>.</p>
+<h1 id="Fixing-VLC"><a href="#Fixing-VLC" class="headerlink" title="Fixing VLC"></a>Fixing VLC</h1><p>To fix <code>VLC</code>, I tried to pack the <code>VLC</code> binary just like the one on <code>Windows</code>.</p>
+<p>But unfortunately, in the <code>.app</code> package, the Header files are not completed. Comparing to Windows version, the entire <code>plugins</code> folder is missing.</p>
+<img src="/2019/05/19/Craft-vlc/vlc-windows-include.jpg" title="Windows">
+<img src="/2019/05/19/Craft-vlc/vlc-mac-include.png" title="macOS">
+<p>So I made a patch for all those files. But the patch is too huge (25000 lines!). So it is not a good idea to merge it into master branch.</p>
+<p>Thanks to Hannah, she has made a <code>libs/vlc</code> blueprint in the master branch, so in <code>Craft</code>, feel free to install it by running <code>craft libs/vlc</code>.</p>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><p>If you cannot build <code>libs/vlc</code>, just like me, you can also choose the binary version <code>VLC</code> with Header files patch.</p>
+<p>The patch of Headers for binary is too big. Adding it to the master branch is not a good idea. So I published it on my own repository:<br><a href="https://github.com/Inokinoki/craft-blueprints-inoki" target="_blank" rel="noopener">https://github.com/Inokinoki/craft-blueprints-inoki</a></p>
+<p>To use it, run <code>craft --add-blueprint-repository https://github.com/inokinoki/craft-blueprints-inoki.git</code> and the blueprint(s) will be added into your local blueprint directory.</p>
+<p>Then, <code>craft binary/vlc</code> will help get the vlc binary and install Header files, libraries into <code>Craft</code> include path and lib path. Finally, you can build what you want with <code>libvlc</code> dependency.</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>Up to now, <code>KDE Connect</code> is using <code>QtMultimedia</code> rather than <code>phonon</code> and <code>phonon-vlc</code> to play a sound. But this work could be also useful for other applications or libraries who depend on <code>phonon</code>, <code>phonon-vlc</code> or <code>vlc</code>. This small step may help build them successfully on macOS.</p>
+<p>I hope this can help someone!</p>
+
+			
+		</div><!-- .entry-content -->
+		
+		
+			<div class="entry-comments">
+				 
+      <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'inokinoki-kde'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+  
+   
+			</div>
+		
+		<footer class="entry-footer">
+			<span class="posted-on font-asesome-icon">
+	<a href rel="bookmark">
+	<time class="updated" datetime="2019-05-19T19:57:22.000Z">2019-05-19</time>
+	</a>
+</span>
+
+	<span class="cat-links font-asesome-icon">
+		
+				<a href="/categories/Craft/" rel="category tag">Craft</a>
+		
+				<a href="/categories/Craft/Blueprints/" rel="category tag">Blueprints</a>
+		
+	</span>
+
+
+	<span class="tags-links font-asesome-icon">
+	
+		<a href="/tags/Craft/" rel="category tag">Craft</a>
+    
+</span>
+		
+
+    <span class="eye font-asesome-icon">
+         <span id="/2019/05/19/Craft-vlc/" class="leancloud_visitors" data-flag-title="KDE Craft now delivers with vlc and libvlc on macOS">
+        
+        </span>
+    </span>
+
+			<br>
+			<a href="https://www.vultr.com/?ref=7746405"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
+		</footer><!-- .entry-footer -->
+</article>
+<div class="misc">
+    <a href="#main"><span class="top font-asesome-icon">Top</span></a>
+</div>
+			</main>
+		</div>
+		<footer id="colophon" class="site-footer">
+			<div class="site-info">
+				<span>powered by <a href="https://hexo.io/">Hexo</a>&nbsp;&nbsp; theme by <a href="https://github.com/Troy-Yang/hexo-theme-twentyfifteen-wordpress">Troy</a> &nbsp; inspired by <a href="https://wordpress.org/themes/">wordpress</a></span>
+			</div><!-- .site-info -->
+		</footer>
+	</div>
+	<!-- <div id="infinite-footer">
+            <div class="container">
+                <div class="blog-info">
+                    <a id="infinity-blog-title" href="#" rel="home" title="Scroll back to top">
+                         Happy Coding, Happy Life!
+                    </a>
+                </div>
+                <div class="blog-credits">
+					<span>蜀ICP备15004900号-1</span>
+                </div>
+            </div>
+        </div>#infinite-footer -->
+    <!-- After footer scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <!--referring from https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html -->
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+    <script>
+        AV.initialize("QC5aQ8pUah279L1skNerLRTU-gzGzoHsz", "mhvEFRRIuPHtjNgOXAe9axsk");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            $(".leancloud_visitors").each(function () {
+                var url = $(this).attr("id").trim();
+                query.equalTo("url", url);
+                query.find({
+                    success: function (results) {
+                        if (results.length == 0) {
+                            var content = $(document.getElementById(url)).text() + ': 0';
+                            $(document.getElementById(url)).text(content);
+                            return;
+                        }
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            //var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+                            $(document.getElementById(url)).text(object.get('time'));
+                        }
+                    },
+                    error: function (object, error) {
+                        console.log("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+        }
+        function addCount(Counter) {
+            var Counter = AV.Object.extend("Counter");
+            url = $(".leancloud_visitors").attr('id').trim();
+            title = $(".leancloud_visitors").attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find({
+                success: function (results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function (counter) {
+                                //var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(counter.get('time'));
+                            },
+                            error: function (counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function (newcounter) {
+                                console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(newcounter.get('time'));
+                            },
+                            error: function (newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+        $(function () {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+    
+
+</body>
+</html>

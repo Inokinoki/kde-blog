@@ -1,0 +1,398 @@
+<html>
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <meta name="google-site-verification" content="uxeL3ivCjEkmCPEWS1owNMkK9VHPxOMCjcaMHaQ38Bo">
+    <meta name="google-site-verification" content="yU7d61qsV4eAvSOazt85VJMYfiEDjZjcaXwyQKGP5Bc">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	
+		<link href="/favicon.ico" rel="icon">
+	 
+      <title>KDE Craft Packager on macOS | Inoki in KDE</title>
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlight.css">
+	
+	
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108089983-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108089983-2');
+</script>
+
+<!-- End Google Analytics -->
+
+<!-- Google Adsense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2713518338457470",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+</head>
+<body>
+	<div id="site" class="site">
+		<div id="sidebar" class="sidebar">
+			<header id="header" class="site-header">
+	<div class="site-branding">
+		<h1 class="site-title">
+			
+				<a href="/images/avatar-small.png" class="avatar-circle"><img src="/images/avatar-small.png"></a>
+			
+			<a href="/" rel="home">Inoki ❤️ KDE</a></h1>
+		<p class="site-description"></p>
+		<button class="secondary-toggle font-asesome-icon">Menu and widgets</button>
+	</div>
+</header>
+<div id="secondary" class="secondary">
+	<nav class="main-navigation">
+                         <ul id="menu-demo-menu" class="nav-menu">
+						 
+							<li class="menu-item"><a href="/">Home</a></li>
+						
+							<li class="menu-item"><a href="/archives">Archives</a></li>
+						
+							<li class="menu-item"><a href="/about">AboutMe</a></li>
+						
+                         </ul>
+    </nav>
+	
+		<aside class="widget social-navigation">
+    <ul>
+        <li>
+            <a href="http://twitter.com/IIInoki">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/noki.noki.10">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/inokinoki">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://linkedin.com/in/weixuan-xiao-032725108/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</aside>
+	
+		
+<aside class="widget">
+		<h3 class="widget-title">Recent Posts</h3>		
+		<ul>
+			
+          <li>
+            <a href="/2019/05/26/Craft-packager/">KDE Craft Packager on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/19/Craft-vlc/">KDE Craft now delivers with vlc and libvlc on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/09/Inoki/">About me</a>
+          </li>
+        
+		</ul>
+	</aside>
+
+
+	
+		
+  <aside class="widget">
+		<h3 class="widget-title">Tag Cloud</h3>
+        <a href="/tags/Craft/" style="font-size: 20px;">Craft</a> <a href="/tags/Inoki/" style="font-size: 10px;">Inoki</a>
+    </aside>
+
+	
+</div>
+
+		</div>
+		<div id="content" class="site-content">
+			<main id="main" class="site-main" role="main">
+				
+<article class="hentry ">
+		
+		
+			<header class="entry-header">
+				<h2 class="entry-title"><a class="post-title-link" href="/2019/05/26/Craft-packager/" rel="bookmark">KDE Craft Packager on macOS</a></h2>	
+			</header>
+		
+		<!-- .entry-header -->
+		<div class="entry-content">
+			
+				<p>In Craft, to create a package, we can use <code>craft --package &lt;blueprint-name&gt;</code> after the compiling and the installing of a library or an application with given blueprint name.</p>
+<p>On macOS, <code>MacDMGPackager</code> is the packager used by Craft. The <code>MacDylibBundler</code>is used in <code>MacDMGPackager</code> to handle the dependencies.</p>
+<p>In this article, I’ll give a brief introduction of the two classes and the improvement which I’ve done for my GSoC project.</p>
+<h1 id="MacDMGPackager"><a href="#MacDMGPackager" class="headerlink" title="MacDMGPackager"></a>MacDMGPackager</h1><p><code>MacDMGPackager</code> is a subclass of <code>CollectionPackagerBase</code>. Its most important method is <code>createPackage</code>.</p>
+<p>First of all, </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.internalCreatePackage(seperateSymbolFiles=packageSymbols)</span><br></pre></td></tr></table></figure>
+<h2 id="Initialisation-of-directory-variables"><a href="#Initialisation-of-directory-variables" class="headerlink" title="Initialisation of directory variables"></a>Initialisation of directory variables</h2><p>Here we get the definitions, the path of the application which we want to pack, and the path of archive.<br>The <code>appPath</code> should be the root of an application package with <code>.app</code> extension name. According to the convention of applications on macOS, <code>targetLibdir</code> points to the library directory of the application.<br>During the compiling and the installing period, in the application directory, there is only a <code>.plist</code> and <code>MacOS</code> subdirectory. So next, the library directory is created for further using.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">defines = self.setDefaults(self.defines)</span><br><span class="line">appPath = self.getMacAppPath(defines)</span><br><span class="line">archive = os.path.normpath(self.archiveDir())</span><br><span class="line"><span class="comment"># ...</span></span><br><span class="line">targetLibdir = os.path.join(appPath, <span class="string">"Contents"</span>, <span class="string">"Frameworks"</span>)</span><br><span class="line">utils.createDir(targetLibdir)</span><br></pre></td></tr></table></figure>
+<h2 id="Moving-files-to-correct-directories"><a href="#Moving-files-to-correct-directories" class="headerlink" title="Moving files to correct directories"></a>Moving files to correct directories</h2><p>Then, we predefine a list of pairs of source and destination for directories and move the files to the destinations. The destionations are the correct directories of libraries, plugins and resources in a macOS application package.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">moveTargets = [</span><br><span class="line">    (os.path.join(archive, <span class="string">"lib"</span>, <span class="string">"plugins"</span>), os.path.join(appPath, <span class="string">"Contents"</span>, <span class="string">"PlugIns"</span>)),</span><br><span class="line">    (os.path.join(archive, <span class="string">"plugins"</span>), os.path.join(appPath, <span class="string">"Contents"</span>, <span class="string">"PlugIns"</span>)),</span><br><span class="line">    (os.path.join(archive, <span class="string">"lib"</span>), targetLibdir),</span><br><span class="line">    (os.path.join(archive, <span class="string">"share"</span>), os.path.join(appPath, <span class="string">"Contents"</span>, <span class="string">"Resources"</span>))]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> appPath.startswith(archive):</span><br><span class="line">    moveTargets += [(os.path.join(archive, <span class="string">"bin"</span>), os.path.join(appPath, <span class="string">"Contents"</span>, <span class="string">"MacOS"</span>))]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> src, dest <span class="keyword">in</span> moveTargets:</span><br><span class="line">    <span class="keyword">if</span> os.path.exists(src):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> utils.mergeTree(src, dest):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Fixing-dependencies-using-MacDylibBundler"><a href="#Fixing-dependencies-using-MacDylibBundler" class="headerlink" title="Fixing dependencies using MacDylibBundler"></a>Fixing dependencies using MacDylibBundler</h2><p>After the moving, we create an instance of <code>MacDylibBundler</code> with <code>appPath</code>. After the <code>with</code> instruction, all the codes are executed with <code>DYLD_FALLBACK_LIBRARY_PATH=&lt;package.app&gt;/Contents/Frameworks:&lt;Craft-Root&gt;/lib</code> environment variable.</p>
+<p>For further reading of this environment variable, please refer this question on <a href="https://stackoverflow.com/questions/3146274/is-it-ok-to-use-dyld-library-path-on-mac-os-x-and-whats-the-dynamic-library-s" target="_blank" rel="noopener">StackOverFlow</a>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dylibbundler = MacDylibBundler(appPath)</span><br><span class="line"><span class="keyword">with</span> utils.ScopedEnv(&#123;<span class="string">'DYLD_FALLBACK_LIBRARY_PATH'</span>: targetLibdir + <span class="string">":"</span> + os.path.join(CraftStandardDirs.craftRoot(), <span class="string">"lib"</span>)&#125;):</span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<h3 id="Fixing-dependencies-of-main-binary"><a href="#Fixing-dependencies-of-main-binary" class="headerlink" title="Fixing dependencies of main binary"></a>Fixing dependencies of main binary</h3><p>Here, we firstly create an object of Path. It points to the executable of macOS Package.</p>
+<p>It should be reminded that, although here, we use the same name for both the macOS application package and the executable, it is not mandatory. The name of executable is defined by <code>CFBundleExecutable</code> in the <code>.plist</code> file. So maybe read it from the <code>.plist</code> file is a better solution.</p>
+<p>Then, the method <code>bundleLibraryDependencies</code> is used to copy libraries and fix dependencies for the executable in the package.</p>
+<p>A brief introduction of this method:</p>
+<ol>
+<li>Call <code>utils.getLibraryDeps</code> for getting a list of dependencies. This operation is done by using <code>otool -L</code>.</li>
+<li>Copy missing dependencies into <code>Contents/Frameworks</code>, and update the library information in the executable.<br>I’ll give an analyse in detail in the next chapter.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CraftCore.log.info(<span class="string">"Bundling main binary dependencies..."</span>)</span><br><span class="line">mainBinary = Path(appPath, <span class="string">"Contents"</span>, <span class="string">"MacOS"</span>, defines[<span class="string">'appname'</span>])</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.bundleLibraryDependencies(mainBinary):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Fixing-dependencies-in-Frameworks-and-PlugIns"><a href="#Fixing-dependencies-in-Frameworks-and-PlugIns" class="headerlink" title="Fixing dependencies in Frameworks and PlugIns"></a>Fixing dependencies in Frameworks and PlugIns</h3><p>And then, we try to fix all the dependencies of libraries in <code>Contents/Frameworks</code> and <code>Contents/PlugIns</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Fix up the library dependencies of files in Contents/Frameworks/</span></span><br><span class="line">CraftCore.log.info(<span class="string">"Bundling library dependencies..."</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.fixupAndBundleLibsRecursively(<span class="string">"Contents/Frameworks"</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">CraftCore.log.info(<span class="string">"Bundling plugin dependencies..."</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.fixupAndBundleLibsRecursively(<span class="string">"Contents/PlugIns"</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Fixing-dependencies-using-macdeployqt"><a href="#Fixing-dependencies-using-macdeployqt" class="headerlink" title="Fixing dependencies using macdeployqt"></a>Fixing dependencies using macdeployqt</h3><p>The <code>macdeployqt</code> is used to fix the <code>Qt</code> libraries used by the application. <code>Craft</code> installed it while compiling and installing <code>Qt</code>. But don’t worry, it is not in your system path.</p>
+<p>I have not yet found what <code>macdeployqt</code> exactly do, it’s nice to have an look at its source code.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> utils.system([<span class="string">"macdeployqt"</span>, appPath, <span class="string">"-always-overwrite"</span>, <span class="string">"-verbose=1"</span>]):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Removing-files-in-blacklist"><a href="#Removing-files-in-blacklist" class="headerlink" title="Removing files in blacklist"></a>Removing files in blacklist</h3><p>If <code>macdeplyqt</code> added some files which we don’t want, they would be removed here.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># macdeployqt might just have added some explicitly blacklisted files</span></span><br><span class="line">blackList = Path(self.packageDir(), <span class="string">"mac_blacklist.txt"</span>)</span><br><span class="line"><span class="keyword">if</span> blackList.exists():</span><br><span class="line">    pattern = [self.read_blacklist(str(blackList))]</span><br><span class="line">    <span class="comment"># use it as whitelist as we want only matches, ignore all others</span></span><br><span class="line">    matches = utils.filterDirectoryContent(appPath, whitelist=<span class="keyword">lambda</span> x, root: utils.regexFileFilter(x, root, pattern), blacklist=<span class="keyword">lambda</span> x, root:<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> matches:</span><br><span class="line">        CraftCore.log.info(<span class="string">f"Remove blacklisted file: <span class="subst">&#123;f&#125;</span>"</span>)</span><br><span class="line">        utils.deleteFile(f)</span><br></pre></td></tr></table></figure>
+<h3 id="Fixing-dependencies-after-fixing-of-macdeployqt"><a href="#Fixing-dependencies-after-fixing-of-macdeployqt" class="headerlink" title="Fixing dependencies after fixing of macdeployqt"></a>Fixing dependencies after fixing of macdeployqt</h3><p>After <code>macdeplotqt</code>, there may be some libraries or plugins added by <code>macdeplotqt</code>. So we do the fixing of dependencies once again.</p>
+<p>But I’m doubting if we need to fix twice the dependencies. I’ll update this post after I figure out what will it lead to if we fust fix after <code>macdeployqt</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># macdeployqt adds some more plugins so we fix the plugins after calling macdeployqt</span></span><br><span class="line">dylibbundler.checkedLibs = set()  <span class="comment"># ensure we check all libs again (but</span></span><br><span class="line"><span class="comment"># we should not need to make any changes)</span></span><br><span class="line">CraftCore.log.info(<span class="string">"Fixing plugin dependencies after macdeployqt..."</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.fixupAndBundleLibsRecursively(<span class="string">"Contents/PlugIns"</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">CraftCore.log.info(<span class="string">"Fixing library dependencies after macdeployqt..."</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.fixupAndBundleLibsRecursively(<span class="string">"Contents/Frameworks"</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h3 id="Checking-dependencies"><a href="#Checking-dependencies" class="headerlink" title="Checking dependencies"></a>Checking dependencies</h3><p>Then, we use <code>MacDylibBundler</code> to check all dependencies in the application package. If there is any bad dependency, the package process will fail.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Finally sanity check that we don't depend on absolute paths from the builder</span></span><br><span class="line">CraftCore.log.info(<span class="string">"Checking for absolute library paths in package..."</span>)</span><br><span class="line">found_bad_dylib = <span class="literal">False</span>  <span class="comment"># Don't exit immeditately so that we log all the bad libraries before failing:</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.areLibraryDepsOkay(mainBinary):</span><br><span class="line">    found_bad_dylib = <span class="literal">True</span></span><br><span class="line">    CraftCore.log.error(<span class="string">"Found bad library dependency in main binary %s"</span>, mainBinary)</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.checkLibraryDepsRecursively(<span class="string">"Contents/Frameworks"</span>):</span><br><span class="line">    CraftCore.log.error(<span class="string">"Found bad library dependency in bundled libraries"</span>)</span><br><span class="line">    found_bad_dylib = <span class="literal">True</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> dylibbundler.checkLibraryDepsRecursively(<span class="string">"Contents/PlugIns"</span>):</span><br><span class="line">    CraftCore.log.error(<span class="string">"Found bad library dependency in bundled plugins"</span>)</span><br><span class="line">    found_bad_dylib = <span class="literal">True</span></span><br><span class="line"><span class="keyword">if</span> found_bad_dylib:</span><br><span class="line">    CraftCore.log.error(<span class="string">"Cannot not create .dmg since the .app contains a bad library depenency!"</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Creating-DMG-image"><a href="#Creating-DMG-image" class="headerlink" title="Creating DMG image"></a>Creating DMG image</h2><p>Up to now, everything is well, we can create a DMG image for the application.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">name = self.binaryArchiveName(fileType=<span class="string">""</span>, includeRevision=<span class="literal">True</span>)</span><br><span class="line">dmgDest = os.path.join(self.packageDestinationDir(), <span class="string">f"<span class="subst">&#123;name&#125;</span>.dmg"</span>)</span><br><span class="line"><span class="keyword">if</span> os.path.exists(dmgDest):</span><br><span class="line">    utils.deleteFile(dmgDest)</span><br><span class="line">appName = defines[<span class="string">'appname'</span>] + <span class="string">".app"</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> utils.system([<span class="string">"create-dmg"</span>, <span class="string">"--volname"</span>, name,</span><br><span class="line">                        <span class="comment"># Add a drop link to /Applications:</span></span><br><span class="line">                        <span class="string">"--icon"</span>, appName, <span class="string">"140"</span>, <span class="string">"150"</span>, <span class="string">"--app-drop-link"</span>, <span class="string">"350"</span>, <span class="string">"150"</span>,</span><br><span class="line">                        dmgDest, appPath]):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">CraftHash.createDigestFiles(dmgDest)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>An example of <code>DMG</code> image is like this one, users can drag the application into <code>Applications</code> directory to install it.</p>
+<img src="/2019/05/26/Craft-packager/DMG-example.png" title="a DMG file">
+<h1 id="MacDylibBundler"><a href="#MacDylibBundler" class="headerlink" title="MacDylibBundler"></a>MacDylibBundler</h1><h2 id="Constructor"><a href="#Constructor" class="headerlink" title="Constructor"></a>Constructor</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, appPath: str)</span>:</span></span><br><span class="line">    <span class="comment"># Avoid processing the same file more than once</span></span><br><span class="line">    self.checkedLibs = set()</span><br><span class="line">    self.appPath = appPath</span><br></pre></td></tr></table></figure>
+<p>In the constructor, a set is created to store the libraries which have been already checked. And the <code>appPath</code> passed by developer is stored.</p>
+<h1 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h1><p>This method <code>bundleLibraryDependencies</code> and <code>_addLibToAppImage</code> are the most important methods in this class. But they’re too long. So I’ll only give some brief introduction of them.</p>
+<p><code>_addLibToAppImage</code> checks whether a library is already in the <code>Contents/Frameworks</code>. If the library doesn’t exist, it copies it into the diretory and tries to fix it with some relative path.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_addLibToAppImage</span><span class="params">(self, libPath: Path)</span> -&gt; bool:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p><code>bundleLibraryDependencies</code> checks the dependencies of <code>fileToFix</code>. If there are some dependencies with absolute path, it copies the dependencies into <code>Contents/Frameworks</code> by calling <code>_addLibToAppImage</code>. And then, it calls <code>_updateLibraryReference</code> to update the reference of library.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bundleLibraryDependencies</span><span class="params">(self, fileToFix: Path)</span> -&gt; bool:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p>As description in the docstring, <code>fixupAndBundleLibsRecursively</code> can remove absolute references and budle all depedencies for all dylibs.</p>
+<p>It traverses the directory, and for each file which is not symbol link, checks whether it ends with “.so” or “.dylib”, or there is “.so.” in the file name, or there is “.framework” in the full path and it’s a macOS binary. If it’s that case, call <code>bundleLibraryDependencies</code> method to bundle it in to <code>.app</code> package.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fixupAndBundleLibsRecursively</span><span class="params">(self, subdir: str)</span>:</span></span><br><span class="line">    <span class="string">"""Remove absolute references and budle all depedencies for all dylibs under :p subdir"""</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">for</span> dirpath, dirs, files <span class="keyword">in</span> os.walk(os.path.join(self.appPath, subdir)):</span><br><span class="line">            <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">                fullpath = Path(dirpath, filename)</span><br><span class="line">                <span class="keyword">if</span> fullpath.is_symlink():</span><br><span class="line">                    <span class="keyword">continue</span>  <span class="comment"># No need to update symlinks since we will process the target eventually.</span></span><br><span class="line">                <span class="keyword">if</span> (filename.endswith(<span class="string">".so"</span>)</span><br><span class="line">                        <span class="keyword">or</span> filename.endswith(<span class="string">".dylib"</span>)</span><br><span class="line">                        <span class="keyword">or</span> <span class="string">".so."</span> <span class="keyword">in</span> filename</span><br><span class="line">                        <span class="keyword">or</span> (<span class="string">f"<span class="subst">&#123;fullpath.name&#125;</span>.framework"</span> <span class="keyword">in</span> str(fullpath) <span class="keyword">and</span> utils.isBinary(str(fullpath)))):</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> self.bundleLibraryDependencies(fullpath):</span><br><span class="line">                        CraftCore.log.info(<span class="string">"Failed to bundle dependencies for '%s'"</span>, os.path.join(dirpath, filename))</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p><code>areLibraryDepsOkay</code> can detect all the dependencies. If the library is not in <code>@rpath</code>, <code>@executable_path</code> or system library path, the dependencies cannot be satisfied on every mac. It may work relevant to the environment. But it will be a big problem.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">areLibraryDepsOkay</span><span class="params">(self, fullPath: Path)</span>:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">for</span> dep <span class="keyword">in</span> utils.getLibraryDeps(str(fullPath)):</span><br><span class="line">        <span class="keyword">if</span> dep == libraryId <span class="keyword">and</span> <span class="keyword">not</span> os.path.isabs(libraryId):</span><br><span class="line">            <span class="keyword">continue</span>  <span class="comment"># non-absolute library id is fine</span></span><br><span class="line">        <span class="comment"># @rpath and @executable_path is fine</span></span><br><span class="line">        <span class="keyword">if</span> dep.startswith(<span class="string">"@rpath"</span>) <span class="keyword">or</span> dep.startswith(<span class="string">"@executable_path"</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="comment"># Also allow /System/Library/Frameworks/ and /usr/lib:</span></span><br><span class="line">        <span class="keyword">if</span> dep.startswith(<span class="string">"/usr/lib/"</span>) <span class="keyword">or</span> dep.startswith(<span class="string">"/System/Library/Frameworks/"</span>):</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> dep.startswith(CraftStandardDirs.craftRoot()):</span><br><span class="line">            CraftCore.log.error(<span class="string">"ERROR: %s references absolute library path from craftroot: %s"</span>, relativePath,</span><br><span class="line">                                dep)</span><br><span class="line">        <span class="keyword">elif</span> dep.startswith(<span class="string">"/"</span>):</span><br><span class="line">            CraftCore.log.error(<span class="string">"ERROR: %s references absolute library path: %s"</span>, relativePath, dep)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            CraftCore.log.error(<span class="string">"ERROR: %s has bad dependency: %s"</span>, relativePath, dep)</span><br><span class="line">        found_bad_lib = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>Here, in <code>checkLibraryDepsRecursively</code>, we traverse the directory to check all the dependencies of libraries, which is <code>.dylib</code> or <code>.so</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">checkLibraryDepsRecursively</span><span class="params">(self, subdir: str)</span>:</span></span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="keyword">for</span> dirpath, dirs, files <span class="keyword">in</span> os.walk(os.path.join(self.appPath, subdir)):</span><br><span class="line">        <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">            fullpath = Path(dirpath, filename)</span><br><span class="line">            <span class="keyword">if</span> fullpath.is_symlink() <span class="keyword">and</span> <span class="keyword">not</span> fullpath.exists():</span><br><span class="line">                CraftCore.log.error(<span class="string">"Found broken symlink '%s' (%s)"</span>, fullpath,</span><br><span class="line">                                    os.readlink(str(fullpath)))</span><br><span class="line">                foundError = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> filename.endswith(<span class="string">".so"</span>) <span class="keyword">or</span> filename.endswith(<span class="string">".dylib"</span>) <span class="keyword">or</span> <span class="string">".so."</span> <span class="keyword">in</span> filename:</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> self.areLibraryDepsOkay(fullpath):</span><br><span class="line">                    CraftCore.log.error(<span class="string">"Found library dependency error in '%s'"</span>, fullpath)</span><br><span class="line">                    foundError = <span class="literal">True</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<h2 id="Static-methods-in-class"><a href="#Static-methods-in-class" class="headerlink" title="Static methods in class"></a>Static methods in class</h2><p>The <code>_updateLibraryReference</code> method can use <code>install_name_tool -change</code> command to change a reference of dynamic library in a macOS/BSD binary.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_updateLibraryReference</span><span class="params">(fileToFix: Path, oldRef: str, newRef: str = None)</span> -&gt; bool:</span></span><br><span class="line">    <span class="keyword">if</span> newRef <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        basename = os.path.basename(oldRef)</span><br><span class="line">        newRef = <span class="string">"@executable_path/../Frameworks/"</span> + basename</span><br><span class="line">    <span class="keyword">with</span> utils.makeWritable(fileToFix):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> utils.system([<span class="string">"install_name_tool"</span>, <span class="string">"-change"</span>, oldRef, newRef, str(fileToFix)], logCommand=<span class="literal">False</span>):</span><br><span class="line">            CraftCore.log.error(<span class="string">"%s: failed to update library dependency path from '%s' to '%s'"</span>,</span><br><span class="line">                                fileToFix, oldRef, newRef)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>The <code>_getLibraryNameId</code> method can use <code>otool -D</code> to get the identity of a dynamic library in a macOS/BSD binary.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@staticmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_getLibraryNameId</span><span class="params">(fileToFix: Path)</span> -&gt; str:</span></span><br><span class="line">    libraryIdOutput = io.StringIO(</span><br><span class="line">        subprocess.check_output([<span class="string">"otool"</span>, <span class="string">"-D"</span>, str(fileToFix)]).decode(<span class="string">"utf-8"</span>).strip())</span><br><span class="line">    lines = libraryIdOutput.readlines()</span><br><span class="line">    <span class="keyword">if</span> len(lines) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">    <span class="comment"># Should have exactly one line with the id now</span></span><br><span class="line">    <span class="keyword">assert</span> len(lines) == <span class="number">2</span>, lines</span><br><span class="line">    <span class="keyword">return</span> lines[<span class="number">1</span>].strip()</span><br></pre></td></tr></table></figure>
+<p>The <code>_fixupLibraryId</code> method can use <code>install_name_tool -id</code> to try to fix the absolute identity of a dynamic library in a macOS/BSD binary.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@classmethod</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">_fixupLibraryId</span><span class="params">(cls, fileToFix: Path)</span>:</span></span><br><span class="line">    libraryId = cls._getLibraryNameId(fileToFix)</span><br><span class="line">    <span class="keyword">if</span> libraryId <span class="keyword">and</span> os.path.isabs(libraryId):</span><br><span class="line">        CraftCore.log.debug(<span class="string">"Fixing library id name for %s"</span>, libraryId)</span><br><span class="line">        <span class="keyword">with</span> utils.makeWritable(fileToFix):</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> utils.system([<span class="string">"install_name_tool"</span>, <span class="string">"-id"</span>, os.path.basename(libraryId), str(fileToFix)],</span><br><span class="line">                                logCommand=<span class="literal">False</span>):</span><br><span class="line">                CraftCore.log.error(<span class="string">"%s: failed to fix absolute library id name for"</span>, fileToFix)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>This class is a magic class which can achieve almost everything on macOS.</p>
+<p>But the code style is a little confusing. And the parameters are not agreed. Some methods use <code>str</code> to represent a path, some use <code>Path</code>.</p>
+<p>Maybe this can be also improved in the future.</p>
+<p>Anyway, it’s really a helpful class.</p>
+<h1 id="Improvement"><a href="#Improvement" class="headerlink" title="Improvement"></a>Improvement</h1><p>During my bonding period, I found that there is a library named <code>qca-qt5</code> is not fixed appropriately. It caused a crash.</p>
+<h2 id="Locating-the-problem"><a href="#Locating-the-problem" class="headerlink" title="Locating the problem"></a>Locating the problem</h2><p>After analyzing of crash log, I found that the library <code>qca-qt5</code> is loaded twice. Two libraries with same dynamic library id caused this crash.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">qca-qt5 (0) &lt;14AD33D7-196F-32BB-91B6-598FA39EEF20&gt; /Volumes/*/kdeconnect-indicator.app/Contents/Frameworks/qca-qt5</span><br><span class="line">(??? - ???) &lt;14AD33D7-196F-32BB-91B6-598FA39EEF20&gt; /Users/USER/*/qca-qt5.framework/Versions/2.2.0/qca-qt5</span><br></pre></td></tr></table></figure></p>
+<p>One is in the <code>.app</code> package, the other is in <code>CraftRoot/lib</code>.</p>
+<img src="/2019/05/26/Craft-packager/Craft-lib.png" title="Craft/lib">
+<img src="/2019/05/26/Craft-packager/Frameworks-lib.png" title="Frameworks">
+<p>As far as I know, <code>qca-qt5</code> tried to search its plugins in some path. The one in the package is not fixed, so it started a searching of plugins in the <code>CraftRoot/lib</code> directory. The plugins in it refer the <code>qca-qt5</code> in the directory. So the two libraries with the same name are loaded, and the application crashed.</p>
+<h2 id="Cause"><a href="#Cause" class="headerlink" title="Cause"></a>Cause</h2><p>With good knowing of <code>MacDylibBundler</code>, we can improve it to fix the bug. And this will be helpful to other applications or libraries in <code>Craft</code>.</p>
+<p>I noticed that all the libraries with <code>.dylib</code> can be handled correctly. The problem is based on the libraries in the <code>.framework</code> package. It seems that <code>Craft</code> cannot handle the dynamic libraries in the <code>.framework</code> correctly.</p>
+<p>And we can see that, in <code>checkLibraryDepsRecursively</code>, only <code>.so</code> and <code>.dylib</code> are checked. So this is a bug covered deeply.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CRAFT: ➜  MacOS otool -L kdeconnectd</span><br><span class="line">kdeconnectd:</span><br><span class="line">	/Volumes/Storage/Inoki/CraftRoot/lib/libkdeconnectcore.1.dylib (compatibility version 1.0.0, current version 1.3.3)</span><br><span class="line">	/Volumes/Storage/Inoki/CraftRoot/lib/libKF5KIOWidgets.5.dylib (compatibility version 5.0.0, current version 5.57.0)</span><br><span class="line">	/Volumes/Storage/Inoki/CraftRoot/lib/libKF5Notifications.5.dylib (compatibility version 5.0.0, current version 5.57.0)</span><br><span class="line">	/Volumes/Storage/Inoki/CraftRoot/lib/qca-qt5.framework Versions/2.2.0/qca-qt5 (compatibility version 2.0.0, current version 2.2.0)</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>In the <code>_addLibToAppImage</code> method, the library in the <code>framework</code> is copied directly to the <code>Contents/Frameworks</code>. For example, <code>lib/qca-qt5.framework/Versions/2.2.0/qca-qt5</code> becomes <code>Contents/Frameworks/qca-qt5</code>.</p>
+<p>And then, during the fix in <code>fixupAndBundleLibsRecursively</code> method, according to the following code, it will not be fixed. Although it should be in a <code>.framework</code> directory and it’s a binary, after <code>_addLibToAppImage</code>, it will not be in a <code>.framework</code> directory. So it will not be fixed.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (filename.endswith(<span class="string">".so"</span>)</span><br><span class="line">        <span class="keyword">or</span> filename.endswith(<span class="string">".dylib"</span>)</span><br><span class="line">        <span class="keyword">or</span> <span class="string">".so."</span> <span class="keyword">in</span> filename</span><br><span class="line">        <span class="keyword">or</span> (<span class="string">f"<span class="subst">&#123;fullpath.name&#125;</span>.framework"</span> <span class="keyword">in</span> str(fullpath) <span class="keyword">and</span> utils.isBinary(str(fullpath)))):</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> self.bundleLibraryDependencies(fullpath):</span><br><span class="line">        CraftCore.log.info(<span class="string">"Failed to bundle dependencies for '%s'"</span>, os.path.join(dirpath, filename))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Fixing-it"><a href="#Fixing-it" class="headerlink" title="Fixing it !"></a>Fixing it !</h2><p>To fix it, I think a good idea is copying all the <code>.framework</code> directory and keeping its structure.</p>
+<p>I firstly do a checking in the <code>_addLibToAppImage</code> method. For example, if <code>qca-qt5</code> is in the <code>qca-qt5.framework</code> subdirectory, we change the <code>libBasename</code> to <code>qca-qt5.framework/Versions/2.2.0/qca-qt5</code>. So the <code>targetPath</code> can also be updated correctly.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">libBasename = libPath.name</span><br><span class="line"></span><br><span class="line"><span class="comment"># Handle dylib in framework</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">f"<span class="subst">&#123;libPath.name&#125;</span>.framework"</span> <span class="keyword">in</span> str(libPath):</span><br><span class="line">    libBasename = str(libPath)[str(libPath).find(<span class="string">f"<span class="subst">&#123;libPath.name&#125;</span>.framework"</span>):]</span><br><span class="line"></span><br><span class="line">targetPath = Path(self.appPath, <span class="string">"Contents/Frameworks/"</span>, libBasename)</span><br><span class="line"><span class="keyword">if</span> targetPath.exists() <span class="keyword">and</span> targetPath <span class="keyword">in</span> self.checkedLibs:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<p>After several checkings, an important section is copying the library. I add some code to check if the library is in a <code>.framework</code> directory. If a library is in a <code>.framework</code> directory, I try to copy the entire directory to the <code>Contents/Frameworks</code>. So for <code>qca-qt5</code>, it should be <code>Contents/Frameworks/qca-qt5.framework/Versions/2.2.0/qca-qt5</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> targetPath.exists():</span><br><span class="line">    <span class="keyword">if</span> <span class="string">f"<span class="subst">&#123;libPath.name&#125;</span>.framework"</span> <span class="keyword">in</span> str(libPath):</span><br><span class="line">        <span class="comment"># Copy the framework of dylib</span></span><br><span class="line">        frameworkPath = str(libPath)[:(str(libPath).find(<span class="string">".framework"</span>) + len(<span class="string">".framework"</span>))]</span><br><span class="line">        frameworkTargetPath = str(targetPath)[:(str(targetPath).find(<span class="string">".framework"</span>) + len(<span class="string">".framework"</span>))]</span><br><span class="line">        utils.copyDir(frameworkPath, frameworkTargetPath, linkOnly=<span class="literal">False</span>)</span><br><span class="line">        CraftCore.log.info(<span class="string">"Added library dependency '%s' to bundle -&gt; %s"</span>, frameworkPath, frameworkTargetPath)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        utils.copyFile(str(libPath), str(targetPath), linkOnly=<span class="literal">False</span>)</span><br><span class="line">        CraftCore.log.info(<span class="string">"Added library dependency '%s' to bundle -&gt; %s"</span>, libPath, targetPath)</span><br></pre></td></tr></table></figure>
+<p>After copying, another important point is in <code>_updateLibraryReference</code>. If a library is in a <code>.framework</code> directory, the new reference should be <code>@executable_path/../Frameworks/*.framework/...</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> newRef <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    basename = os.path.basename(oldRef)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">f"<span class="subst">&#123;basename&#125;</span>.framework"</span> <span class="keyword">in</span> oldRef:</span><br><span class="line">        <span class="comment"># Update dylib in framework</span></span><br><span class="line">        newRef = <span class="string">"@executable_path/../Frameworks/"</span> + oldRef[oldRef.find(<span class="string">f"<span class="subst">&#123;basename&#125;</span>.framework"</span>):]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        newRef = <span class="string">"@executable_path/../Frameworks/"</span> + basename</span><br></pre></td></tr></table></figure>
+<p>After fixing, the executable can be launched without crash.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CRAFT: ➜  MacOS otool -L kdeconnectd</span><br><span class="line">kdeconnectd:</span><br><span class="line">	@executable_path/../Frameworks/libkdeconnectcore.1.dylib (compatibility version 1.0.0, current version 1.3.3)</span><br><span class="line">	@executable_path/../Frameworks/libKF5KIOWidgets.5.dylib (compatibility version 5.0.0, current version 5.57.0)</span><br><span class="line">	@executable_path/../Frameworks/libKF5Notifications.5.dylib (compatibility version 5.0.0, current version 5.57.0)</span><br><span class="line">	@executable_path/../Frameworks/qca-qt5.framework/Versions/2.2.0/qca-qt5 (compatibility version 2.0.0, current version 2.2.0)</span><br><span class="line">    ...</span><br><span class="line">CRAFT: ➜  MacOS ./kdeconnectd</span><br><span class="line">kdeconnect.core: KdeConnect daemon starting</span><br><span class="line">kdeconnect.core: onStart</span><br><span class="line">kdeconnect.core: KdeConnect daemon started</span><br><span class="line">kdeconnect.core: Broadcasting identity packet</span><br></pre></td></tr></table></figure>
+<h1 id="Conclusion-1"><a href="#Conclusion-1" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>In the software development, there are always some cases which we cannot consider. Open Source gives us the possibility of collecting intelligence from people all over the world to handle such cases.</p>
+<p>That’s also why I like Open Source so much.</p>
+<p>Today is the first day of coding period, I hope all goes well for the community and all GSoC students :)</p>
+
+			
+		</div><!-- .entry-content -->
+		
+		
+			<div class="entry-comments">
+				 
+      <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'inokinoki-kde'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+  
+   
+			</div>
+		
+		<footer class="entry-footer">
+			<span class="posted-on font-asesome-icon">
+	<a href rel="bookmark">
+	<time class="updated" datetime="2019-05-26T21:57:22.000Z">2019-05-26</time>
+	</a>
+</span>
+
+	<span class="cat-links font-asesome-icon">
+		
+				<a href="/categories/Craft/" rel="category tag">Craft</a>
+		
+				<a href="/categories/Craft/Package/" rel="category tag">Package</a>
+		
+	</span>
+
+
+	<span class="tags-links font-asesome-icon">
+	
+		<a href="/tags/Craft/" rel="category tag">Craft</a>
+    
+</span>
+		
+
+    <span class="eye font-asesome-icon">
+         <span id="/2019/05/26/Craft-packager/" class="leancloud_visitors" data-flag-title="KDE Craft Packager on macOS">
+        
+        </span>
+    </span>
+
+			<br>
+			<a href="https://www.vultr.com/?ref=7746405"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
+		</footer><!-- .entry-footer -->
+</article>
+<div class="misc">
+    <a href="#main"><span class="top font-asesome-icon">Top</span></a>
+</div>
+			</main>
+		</div>
+		<footer id="colophon" class="site-footer">
+			<div class="site-info">
+				<span>powered by <a href="https://hexo.io/">Hexo</a>&nbsp;&nbsp; theme by <a href="https://github.com/Troy-Yang/hexo-theme-twentyfifteen-wordpress">Troy</a> &nbsp; inspired by <a href="https://wordpress.org/themes/">wordpress</a></span>
+			</div><!-- .site-info -->
+		</footer>
+	</div>
+	<!-- <div id="infinite-footer">
+            <div class="container">
+                <div class="blog-info">
+                    <a id="infinity-blog-title" href="#" rel="home" title="Scroll back to top">
+                         Happy Coding, Happy Life!
+                    </a>
+                </div>
+                <div class="blog-credits">
+					<span>蜀ICP备15004900号-1</span>
+                </div>
+            </div>
+        </div>#infinite-footer -->
+    <!-- After footer scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <!--referring from https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html -->
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+    <script>
+        AV.initialize("QC5aQ8pUah279L1skNerLRTU-gzGzoHsz", "mhvEFRRIuPHtjNgOXAe9axsk");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            $(".leancloud_visitors").each(function () {
+                var url = $(this).attr("id").trim();
+                query.equalTo("url", url);
+                query.find({
+                    success: function (results) {
+                        if (results.length == 0) {
+                            var content = $(document.getElementById(url)).text() + ': 0';
+                            $(document.getElementById(url)).text(content);
+                            return;
+                        }
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            //var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+                            $(document.getElementById(url)).text(object.get('time'));
+                        }
+                    },
+                    error: function (object, error) {
+                        console.log("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+        }
+        function addCount(Counter) {
+            var Counter = AV.Object.extend("Counter");
+            url = $(".leancloud_visitors").attr('id').trim();
+            title = $(".leancloud_visitors").attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find({
+                success: function (results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function (counter) {
+                                //var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(counter.get('time'));
+                            },
+                            error: function (counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function (newcounter) {
+                                console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(newcounter.get('time'));
+                            },
+                            error: function (newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+        $(function () {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+    
+
+</body>
+</html>
