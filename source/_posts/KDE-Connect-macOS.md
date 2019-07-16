@@ -29,7 +29,7 @@ You'll finally get a `DMG` image file in both 2 ways.
 
 Just click on it, mount it and drap `kdeconnect-indicator` into `Applications` folder. 
 
-Open `kdeconnect-indicator` and your magic journal with `KDE Connect` for macOS begins!
+Open `kdeconnect-indicator` and your magic journey with `KDE Connect` for macOS begins!
 
 # Use
 
