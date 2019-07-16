@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -p 4001:4001 -v $(pwd):/usr/blog --rm kde-blog
+docker run -p 4000:4000 -v $(pwd):/usr/blog --rm kde-blog
