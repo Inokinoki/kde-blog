@@ -54,7 +54,7 @@ Currently, you can do these from your Android phone:
 - Share files and links between devices
 - Control the volume of your Mac from the phone
 - Keep your Mac awake when your phone is connected
-- Receive your phone notifications on your desktop computer (this function is achieved but not yet delivered, you can follow another article to enable it manually)
+- Receive your phone notifications on your desktop computer (this function is achieved but not yet delivered, you can follow [this post](/2019/07/18/KDE-Connect-macOS-plugin-notification/) to enable it manually)
 
 I'm trying to make more plugins work on macOS. Good luck to my GSoC project :)
 
