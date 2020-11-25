@@ -1,0 +1,358 @@
+<html>
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta name="google-site-verification" content="uxeL3ivCjEkmCPEWS1owNMkK9VHPxOMCjcaMHaQ38Bo">
+    <meta name="google-site-verification" content="yU7d61qsV4eAvSOazt85VJMYfiEDjZjcaXwyQKGP5Bc">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	
+		<link href="/favicon.ico" rel="icon">
+	 
+      <title>DBus connection on macOS | Inoki in KDE</title>
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlight.css">
+	
+	
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108089983-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108089983-2');
+</script>
+
+<!-- End Google Analytics -->
+
+<!-- Google Adsense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2713518338457470",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+</head>
+<body>
+	<div id="site" class="site">
+		<div id="sidebar" class="sidebar">
+			<header id="header" class="site-header">
+	<div class="site-branding">
+		<h1 class="site-title">
+			
+				<a href="/images/avatar-small.png" class="avatar-circle"><img src="/images/avatar-small.png" /></a>
+			
+			<a href="/" rel="home">Inoki ❤️ KDE</a></h1>
+		<p class="site-description"></p>
+		<button class="secondary-toggle font-asesome-icon">Menu and widgets</button>
+	</div>
+</header>
+<div id="secondary" class="secondary">
+	<nav class="main-navigation">
+                         <ul id="menu-demo-menu" class="nav-menu">
+						 
+							<li class="menu-item"><a href="/">Home</a></li>
+						
+							<li class="menu-item"><a href="/archives">Archives</a></li>
+						
+							<li class="menu-item"><a href="/about">AboutMe</a></li>
+						
+                         </ul>
+    </nav>
+	
+		<aside class="widget social-navigation">
+    <ul>
+        <li>
+            <a href="http://twitter.com/IIInoki">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/noki.noki.10">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/inokinoki">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://linkedin.com/in/weixuan-xiao-032725108/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</aside>
+	
+		
+<aside class="widget">
+		<h3 class="widget-title">Recent Posts</h3>		
+		<ul>
+			
+          <li>
+            <a href="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/">KDE Connect macOS Release</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/DBus/">DBus connection on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/KDE-Connect-macOS-plugin-notification/">Enable notification plugin in KDE Connect on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/KDE-Connect-macOS/">Connect your Android phone with your Mac via KDE Connect</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/26/Craft-packager/">KDE Craft Packager on macOS</a>
+          </li>
+        
+		</ul>
+	</aside>
+
+
+	
+		
+  <aside class="widget">
+		<h3 class="widget-title">Tag Cloud</h3>
+        <a href="/tags/Craft/" style="font-size: 13.33px;">Craft</a> <a href="/tags/DBus/" style="font-size: 10px;">DBus</a> <a href="/tags/GSoC/" style="font-size: 16.67px;">GSoC</a> <a href="/tags/Inoki/" style="font-size: 10px;">Inoki</a> <a href="/tags/KDE-Connect/" style="font-size: 16.67px;">KDE Connect</a> <a href="/tags/macOS/" style="font-size: 20px;">macOS</a>
+    </aside>
+
+	
+</div>
+
+		</div>
+		<div id="content" class="site-content">
+			<main id="main" class="site-main" role="main">
+				
+<article class="hentry ">
+		
+		
+			<header class="entry-header">
+				<h2 class="entry-title"><a class="post-title-link" href="/2019/07/24/DBus/" rel="bookmark">DBus connection on macOS</a></h2>	
+			</header>
+		
+		<!-- .entry-header -->
+		<div class="entry-content">
+			
+				<h1 id="What-is-DBus"><a href="#What-is-DBus" class="headerlink" title="What is DBus"></a>What is DBus</h1><p>DBus is a concept of software bus, an inter-process communication (IPC), and a remote procedure call (RPC) mechanism that allows communication between multiple computer programs (that is, processes) concurrently running on the same machine. DBus was developed as part of the freedesktop.org project, initiated by Havoc Pennington from Red Hat to standardize services provided by Linux desktop environments such as GNOME and KDE.</p>
+<p>In this post, we only talk about how does DBus daemon run and how KDE Applications/Frameworks connect to it. For more details of DBus itself, please move to <a href="https://www.freedesktop.org/wiki/Software/dbus/" target="_blank" rel="noopener">DBus Wiki</a>.</p>
+<h1 id="QDBus"><a href="#QDBus" class="headerlink" title="QDBus"></a>QDBus</h1><p>There are two types of bus: <code>session</code> bus and <code>system</code> bus. The user-end applications should use <code>session</code> bus for IPC or RPC.</p>
+<p>For the DBus connection, there is already a good enough library named QDBus provided by Qt. Qt framework and especially QDBus is widely used in KDE Applications and Frameworks on Linux.</p>
+<p>A mostly used function is <code>QDBusConnection::sessionBus()</code> to establish a connection to default session DBus. All DBus connection are established through this function.</p>
+<p>Its implementation is:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QDBusConnection <span class="title">QDBusConnection::sessionBus</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_q_manager.isDestroyed())</span><br><span class="line">        <span class="keyword">return</span> QDBusConnection(<span class="literal">nullptr</span>);</span><br><span class="line">    <span class="keyword">return</span> QDBusConnection(_q_manager()-&gt;busConnection(SessionBus));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>where <code>_q_manager</code> is an instance of <code>QDBusConnectionManager</code>.</p>
+<p><code>QDBusConnectionManager</code> is a private class so that we don’t know what exactly happens in the implementation.</p>
+<p>The code can be found in <a href="https://github.com/qt/qtbase/blob/589d96b9b06a4a7d0dca03a06c80716318761277/src/dbus/qdbusconnection.cpp#L1175" target="_blank" rel="noopener">qtbase</a>.</p>
+<h1 id="DBus-connection-on-macOS"><a href="#DBus-connection-on-macOS" class="headerlink" title="DBus connection on macOS"></a>DBus connection on macOS</h1><p>On macOS, we don’t have a pre-installed dbus. When we compile it from source code, or install it from HomeBrew or somewhere, a configuration file <code>session.conf</code> and a <code>launchd</code> configuration file <code>org.freedesktop.dbus-session.plist</code> are delivered and expected to install into the system.</p>
+<h2 id="session-conf"><a href="#session-conf" class="headerlink" title="session.conf"></a>session.conf</h2><p>In <code>session.conf</code>, one important thing is <code>&lt;listen&gt;launchd:env=DBUS_LAUNCHD_SESSION_BUS_SOCKET&lt;/listen&gt;</code>, which means socket path should be provided by <code>launchd</code> through the environment <code>DBUS_LAUNCHD_SESSION_BUS_SOCKET</code>.</p>
+<h2 id="org-freedesktop-dbus-session-plist"><a href="#org-freedesktop-dbus-session-plist" class="headerlink" title="org.freedesktop.dbus-session.plist"></a>org.freedesktop.dbus-session.plist</h2><p>On macOS, <code>launchd</code> is a unified operating system service management framework, starts, stops and manages daemons, applications, processes, and scripts. Just like <code>systemd</code> on Linux.</p>
+<p>The file <code>org.freedesktop.dbus-session.plist</code> describes how <code>launchd</code> can find a daemon executable, the arguments to launch it, and the socket to communicate after launching daemon.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">plist</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//Apple//DTD PLIST 1.0//EN"</span> <span class="meta-string">"http://www.apple.com/DTDs/PropertyList-1.0.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">plist</span> <span class="attr">version</span>=<span class="string">"1.0"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>Label<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">string</span>&gt;</span>org.freedesktop.dbus-session<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>ProgramArguments<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>/&#123;DBus install path&#125;/bin/dbus-daemon<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>--nofork<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>--session<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">key</span>&gt;</span>Sockets<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">key</span>&gt;</span>unix_domain_listener<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dict</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">key</span>&gt;</span>SecureSocketWithKey<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">string</span>&gt;</span>DBUS_LAUNCHD_SESSION_BUS_SOCKET<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dict</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Once the daemon is successfully launched by <code>launchd</code>, the socket will be provided in <code>DBUS_LAUNCHD_SESSION_BUS_SOCKET</code> env of <code>launchd</code>.</p>
+<p>We can get it with following command:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl getenv DBUS_LAUNCHD_SESSION_BUS_SOCKET</span><br></pre></td></tr></table></figure></p>
+<h1 id="Current-solution-in-KDE-Connect"><a href="#Current-solution-in-KDE-Connect" class="headerlink" title="Current solution in KDE Connect"></a>Current solution in KDE Connect</h1><p>KDE Connect needs urgently DBus to make, the communication between <code>kdeconenctd</code> and <code>kdeconnect-indicator</code> or other components, possible.</p>
+<h2 id="First-try"><a href="#First-try" class="headerlink" title="First try"></a>First try</h2><p>Currently, we delivered <code>dbus-daemon</code> in the package, and run</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./Contents/MacOS/dbus-daemon --config-file=./Contents/Resources/dbus-1/session.conf --<span class="built_in">print</span>-address --nofork --address=unix:tmpdir=/tmp</span><br></pre></td></tr></table></figure>
+<p><code>--address=unix:tmpdir=/tmp</code> provides a base directory to store a random unix socket descriptor. So we could have serveral instances at the same time, with different addresse.</p>
+<p><code>--print-address</code> can let <code>dbus-daemon</code> write its generated, real address into standard output. </p>
+<p>Then we redirect the output of <code>dbus-daemon</code> to<br><code>KdeConnectConfig::instance()-&gt;privateDBusAddressPath()</code>. Normally, it should be <code>$HOME/Library/Preferences/kdeconnect/private_dbus_address</code>. For example, the address in it is <code>unix:path=/tmp/dbus-K0TrkEKiEB,guid=27b519a52f4f9abdcb8848165d3733a6</code>.</p>
+<p>Therefore, our program can access this file to get the real DBus address, and use another function in QDBus to connect to it:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QDBusConnection::connectToBus(KdeConnectConfig::instance()-&gt;privateDBusAddress(), QStringLiteral(KDECONNECT_PRIVATE_DBUS_NAME));</span><br></pre></td></tr></table></figure></p>
+<p>We redirect all <code>QDBusConnection::sessionBus</code> to <code>QDBusConnection::connectToBus</code> to connect to our own DBus.</p>
+<h2 id="Fake-a-session-DBus"><a href="#Fake-a-session-DBus" class="headerlink" title="Fake a session DBus"></a>Fake a session DBus</h2><p>With such solution, <code>kdeconnectd</code> and <code>kdeconnect-indicator</code> coworks well. But in KFrameworks, there are lots of components which are using <code>QDBusConnection::sessionBus</code> rather than <code>QDBusConnection::connectToBus</code>. We cannot change all of them.</p>
+<p>Then I came up with an idea, try to <strong>fake a session bus</strong> on macOS.</p>
+<p>To hack and validate, I tried to launch a <code>dbus-daemon</code> using <code>/tmp/dbus-K0TrkEKiEB</code> as address, and then I tried type this in my terminal:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">launchctl setenv DBUS_LAUNCHD_SESSION_BUS_SOCKET /tmp/dbus-K0TrkEKiEB</span><br></pre></td></tr></table></figure></p>
+<p>Then I launched <code>dbus-monitor --session</code>. It did connect to the bus that I launched.</p>
+<p>And then, any <code>QDBusConnection::sessionBus</code> can establish a stable connection to the faked session bus. So components in KFramework can use the same session bus as well.</p>
+<p>To implement it in KDE Connect, after starting <code>dbus-daemon</code>, I read the file content, filter the socket address, and call <code>launchctl</code> to set <code>DBUS_LAUNCHD_SESSION_BUS_SOCKET</code> env.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Set launchctl env</span></span><br><span class="line">QString privateDBusAddress = KdeConnectConfig::instance()-&gt;privateDBusAddress();</span><br><span class="line">QRegularExpressionMatch path;</span><br><span class="line"><span class="keyword">if</span> (privateDBusAddress.contains(QRegularExpression(</span><br><span class="line">        QStringLiteral(<span class="string">"path=(?&lt;path&gt;/tmp/dbus-[A-Za-z0-9]+)"</span>)</span><br><span class="line">    ), &amp;path)) &#123;</span><br><span class="line">    qCDebug(KDECONNECT_CORE) &lt;&lt; <span class="string">"DBus address: "</span> &lt;&lt; path.captured(QStringLiteral(<span class="string">"path"</span>));</span><br><span class="line">    QProcess setLaunchdDBusEnv;</span><br><span class="line">    setLaunchdDBusEnv.setProgram(QStringLiteral(<span class="string">"launchctl"</span>));</span><br><span class="line">    setLaunchdDBusEnv.setArguments(&#123;</span><br><span class="line">        QStringLiteral(<span class="string">"setenv"</span>),</span><br><span class="line">        QStringLiteral(KDECONNECT_SESSION_DBUS_LAUNCHD_ENV),</span><br><span class="line">        path.captured(QStringLiteral(<span class="string">"path"</span>))</span><br><span class="line">    &#125;);</span><br><span class="line">    setLaunchdDBusEnv.start();</span><br><span class="line">    setLaunchdDBusEnv.waitForFinished();</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    qCDebug(KDECONNECT_CORE) &lt;&lt; <span class="string">"Cannot get dbus address"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Then everything works!</p>
+<h2 id="Possible-improvement"><a href="#Possible-improvement" class="headerlink" title="Possible improvement"></a>Possible improvement</h2><ol>
+<li>Since we can directly use session bus, the redirect from <code>QDBusConnection::sessionBus</code> to <code>QDBusConnection::connectToBus</code> is not necessary anymore. Everyone can connect it in convenience.</li>
+<li>Each time we launch <code>kdeconnectd</code>, a new <code>dbus-daemon</code> is launched and the environment in <code>launchctl</code> is overwritten. To improve this, we might detect whether there is already an available <code>dbus-daemon</code> through testing connectivity of returned <code>QDBusConnection::sessionBus</code>. This might be done by a bootstrap script.</li>
+<li>It will be really nice if we can have a unified way for all KDE Applications on macOS.</li>
+</ol>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>I’m looking forward to a general DBus solution for all KDE applications :)</p>
+
+			
+		</div><!-- .entry-content -->
+		
+		
+			<div class="entry-comments">
+				 
+      <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'inokinoki-kde'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+  
+   
+			</div>
+		
+		<footer class="entry-footer">
+			<span class="posted-on font-asesome-icon">
+	<a href="" rel="bookmark">
+	<time class="updated" datetime="2019-07-24T14:55:00.000Z">2019-07-24</time>
+	</a>
+</span>
+
+	<span class="cat-links font-asesome-icon">
+		
+				<a href="/categories/macOS/" rel="category tag">macOS</a>
+		
+	</span>
+
+
+	<span class="tags-links font-asesome-icon">
+	
+		<a href="/tags/macOS/" rel="category tag">macOS</a>
+    
+		<a href="/tags/DBus/" rel="category tag">DBus</a>
+    
+</span>
+		
+
+    <span class="eye font-asesome-icon" >
+         <span id="/2019/07/24/DBus/" class="leancloud_visitors" data-flag-title="DBus connection on macOS">
+        
+        </span>
+    </span>
+
+			<br/>
+			<a href="https://www.vultr.com/?ref=7746405"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
+		</footer><!-- .entry-footer -->
+</article>
+<div class="misc">
+    <a href="#main"><span class="top font-asesome-icon">Top</span></a>
+</div>
+			</main>
+		</div>
+		<footer id="colophon" class="site-footer">
+			<div class="site-info">
+				<span>powered by <a href="https://hexo.io/">Hexo</a>&nbsp;&nbsp; theme by <a href="https://github.com/Troy-Yang/hexo-theme-twentyfifteen-wordpress">Troy</a> &nbsp; inspired by <a href="https://wordpress.org/themes/">wordpress</a></span>
+			</div><!-- .site-info -->
+		</footer>
+	</div>
+	<!-- <div id="infinite-footer">
+            <div class="container">
+                <div class="blog-info">
+                    <a id="infinity-blog-title" href="#" rel="home" title="Scroll back to top">
+                         Happy Coding, Happy Life!
+                    </a>
+                </div>
+                <div class="blog-credits">
+					<span>蜀ICP备15004900号-1</span>
+                </div>
+            </div>
+        </div>#infinite-footer -->
+    <!-- After footer scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <!--referring from https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html -->
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+    <script>
+        AV.initialize("QC5aQ8pUah279L1skNerLRTU-gzGzoHsz", "mhvEFRRIuPHtjNgOXAe9axsk");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            $(".leancloud_visitors").each(function () {
+                var url = $(this).attr("id").trim();
+                query.equalTo("url", url);
+                query.find({
+                    success: function (results) {
+                        if (results.length == 0) {
+                            var content = $(document.getElementById(url)).text() + ': 0';
+                            $(document.getElementById(url)).text(content);
+                            return;
+                        }
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            //var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+                            $(document.getElementById(url)).text(object.get('time'));
+                        }
+                    },
+                    error: function (object, error) {
+                        console.log("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+        }
+        function addCount(Counter) {
+            var Counter = AV.Object.extend("Counter");
+            url = $(".leancloud_visitors").attr('id').trim();
+            title = $(".leancloud_visitors").attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find({
+                success: function (results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function (counter) {
+                                //var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(counter.get('time'));
+                            },
+                            error: function (counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function (newcounter) {
+                                console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(newcounter.get('time'));
+                            },
+                            error: function (newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+        $(function () {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+    
+
+</body>
+</html>
