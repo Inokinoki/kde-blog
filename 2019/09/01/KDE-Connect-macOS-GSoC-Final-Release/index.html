@@ -1,0 +1,375 @@
+<html>
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta name="google-site-verification" content="uxeL3ivCjEkmCPEWS1owNMkK9VHPxOMCjcaMHaQ38Bo">
+    <meta name="google-site-verification" content="yU7d61qsV4eAvSOazt85VJMYfiEDjZjcaXwyQKGP5Bc">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	
+	
+		<link href="/favicon.ico" rel="icon">
+	 
+      <title>KDE Connect macOS Release | Inoki in KDE</title>
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/highlight.css">
+	
+	
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108089983-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-108089983-2');
+</script>
+
+<!-- End Google Analytics -->
+
+<!-- Google Adsense -->
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2713518338457470",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+</head>
+<body>
+	<div id="site" class="site">
+		<div id="sidebar" class="sidebar">
+			<header id="header" class="site-header">
+	<div class="site-branding">
+		<h1 class="site-title">
+			
+				<a href="/images/avatar-small.png" class="avatar-circle"><img src="/images/avatar-small.png" /></a>
+			
+			<a href="/" rel="home">Inoki ❤️ KDE</a></h1>
+		<p class="site-description"></p>
+		<button class="secondary-toggle font-asesome-icon">Menu and widgets</button>
+	</div>
+</header>
+<div id="secondary" class="secondary">
+	<nav class="main-navigation">
+                         <ul id="menu-demo-menu" class="nav-menu">
+						 
+							<li class="menu-item"><a href="/">Home</a></li>
+						
+							<li class="menu-item"><a href="/archives">Archives</a></li>
+						
+							<li class="menu-item"><a href="/about">AboutMe</a></li>
+						
+                         </ul>
+    </nav>
+	
+		<aside class="widget social-navigation">
+    <ul>
+        <li>
+            <a href="http://twitter.com/IIInoki">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/noki.noki.10">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/inokinoki">
+                <i class="fa fa-github" aria-hidden="true"></i>
+            </a>
+        </li>
+        <li>
+            <a href="https://linkedin.com/in/weixuan-xiao-032725108/">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</aside>
+	
+		
+<aside class="widget">
+		<h3 class="widget-title">Recent Posts</h3>		
+		<ul>
+			
+          <li>
+            <a href="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/">KDE Connect macOS Release</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/24/DBus/">DBus connection on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/18/KDE-Connect-macOS-plugin-notification/">Enable notification plugin in KDE Connect on macOS</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/16/KDE-Connect-macOS/">Connect your Android phone with your Mac via KDE Connect</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/26/Craft-packager/">KDE Craft Packager on macOS</a>
+          </li>
+        
+		</ul>
+	</aside>
+
+
+	
+		
+  <aside class="widget">
+		<h3 class="widget-title">Tag Cloud</h3>
+        <a href="/tags/Craft/" style="font-size: 13.33px;">Craft</a> <a href="/tags/DBus/" style="font-size: 10px;">DBus</a> <a href="/tags/GSoC/" style="font-size: 16.67px;">GSoC</a> <a href="/tags/Inoki/" style="font-size: 10px;">Inoki</a> <a href="/tags/KDE-Connect/" style="font-size: 16.67px;">KDE Connect</a> <a href="/tags/macOS/" style="font-size: 20px;">macOS</a>
+    </aside>
+
+	
+</div>
+
+		</div>
+		<div id="content" class="site-content">
+			<main id="main" class="site-main" role="main">
+				
+<article class="hentry ">
+		
+		
+			<header class="entry-header">
+				<h2 class="entry-title"><a class="post-title-link" href="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/" rel="bookmark">KDE Connect macOS Release</a></h2>	
+			</header>
+		
+		<!-- .entry-header -->
+		<div class="entry-content">
+			
+				<p>Now it’s the end of Google Summer of Code 2019. As my GSoC project, the port of KDE Connect on macOS has made great progress. You can find and download it in my <a href="https://github.com/Inokinoki/kde-blog/releases/tag/20190901" target="_blank" rel="noopener">blog release page</a>.</p>
+<p><strong>Note:</strong> This post aims at presenting the features of KDE Connect which have been implemented on macOS. If you’d like to know more information, such as compilation of your own KDE Connect binary on macOS, please turn to another post in my post <a href="https://kde.inoki.cc/2019/07/16/KDE-Connect-macOS/">Connect your Android phone with your Mac via KDE Connect</a>. And if you’re interested in what I’ve done during Google Summer of Code, my status report of Google Summer of Code is <a href="https://community.kde.org/GSoC/2019/StatusReports/WeixuanXiao" target="_blank" rel="noopener">HERE</a>.</p>
+<h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><p>In this chapter, I’d like to give you a preview of all features, as well as how to configure to make some of functions work.</p>
+<h2 id="Launch-KDE-Connect"><a href="#Launch-KDE-Connect" class="headerlink" title="Launch KDE Connect"></a>Launch KDE Connect</h2><p>First, we can click on KDE Connect application - the <code>kdeconnect-indicator.app</code> to open it.</p>
+<img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-Launch.gif" title="KDE Connect Launching">
+<p>Then, we can open KDE Connect configuration window from the indicator in the tray bar of macOS. </p>
+<img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-configuration.png" title="KDE Connect Configuration Window">
+<p>As you can see, this is the main page of KDE Connect. All available plugins are here, you can enable/disable or configure them. In addition, available devices will be listed on the left, you can choose them to pair/unpair with them/it.</p>
+<h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="Pair-notification"><a href="#Pair-notification" class="headerlink" title="Pair notification"></a>Pair notification</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-PairNotification.gif" title="KDE Connect Pair notification">
+<p>When you pair from your Andoid Phone, you should be able to receive a notification that shows the pair request. You can accept or reject it in the KDE Connect configuration window, or you can do it with KDE Connect indicator tray icon, there would be an entry for the pair request as well.</p>
+<p>Otherwise, if you change the notification type of KDE Connect to <code>alert</code> in the system preference, you should also be able to do a quick action with the notification itself. Just as I showed in <a href="https://kde.inoki.cc/2019/07/18/KDE-Connect-macOS-plugin-notification/">Enable notification plugin in KDE Connect on macOS</a>.</p>
+<p>Once paired, you can enjoy your adventure on macOS with KDE Connect!</p>
+<h3 id="Clipboard-synchronization"><a href="#Clipboard-synchronization" class="headerlink" title="Clipboard synchronization"></a>Clipboard synchronization</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-clipboard-sync.png" title="KDE Connect Clipboard">
+<p>The text that you copy on your Mac will be shared to your phone, and those you copy on your phone will be also synchronized to your Mac.</p>
+<h3 id="Notification-synchronization"><a href="#Notification-synchronization" class="headerlink" title="Notification synchronization"></a>Notification synchronization</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-notification.png" title="KDE Connect Notification">
+<p>With KNotifications support for macOS, you can receive notification from your Android phones and react to them. You can ping your Mac to test whether they are well connected.</p>
+<h3 id="Sending-file"><a href="#Sending-file" class="headerlink" title="Sending file"></a>Sending file</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SendFile.gif" title="KDE Connect Send file">
+<p>Sharing your file on your Mac with your Android phone is also a basic feature. You could also send a file from your Android phone, by default, the file will be saved in the <code>Downloads</code> folder in your Mac.</p>
+<h3 id="System-Volume"><a href="#System-Volume" class="headerlink" title="System Volume"></a>System Volume</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-Volume.gif" title="KDE Cnnect SFTP">
+<p>You can control the system value of your Mac from your Android Phone remotely.</p>
+<h3 id="SFTP"><a href="#SFTP" class="headerlink" title="SFTP"></a>SFTP</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SFTPBrowser.gif" title="KDE Cnnect SFTP">
+<p>With my SFTP browser, you can browse files in your Android Phone from your Mac, easily synchronize a file.</p>
+<h3 id="SMS"><a href="#SMS" class="headerlink" title="SMS"></a>SMS</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SMS.gif" title="KDE Connect SMS">
+<p>Thanks to SMS application of Simon Redman, sending and receiving SMS on your Mac are possible!</p>
+<h3 id="Running-command"><a href="#Running-command" class="headerlink" title="Running command"></a>Running command</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-RunCommand.gif" title="KDE Connect Run command">
+<p>Run command from your Android phone. I believe that using AppleScript, more and more things that KDE Connect can do on macOS, will be discovered, maybe by you!</p>
+<h3 id="Mouse-and-Keyboard"><a href="#Mouse-and-Keyboard" class="headerlink" title="Mouse and Keyboard"></a>Mouse and Keyboard</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-OpenMouseKeyboard.gif" title="KDE Connect Allow control">
+<p>You should be able to use your Android phone as a temporary trackpad and a keyboard. But it needs your permission to allow your Android phone to do it on your Mac. The GIF above shows how to do that.</p>
+<h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>Except the functions shown above, you can also do these from your Android phone:</p>
+<ul>
+<li>Keep your Mac awake when your phone is connected</li>
+<li>Use your phone to control your slides during a presentation</li>
+<li>Check the battery level of your phone</li>
+<li>Ring your phone to help find it</li>
+</ul>
+<p>And, you may have noticed that, in the screen capture, there are KDE Connect in dark mode and in light mode. Thanks to Qt, we are able to benefit it.</p>
+<p>Furthermore, there is no doubt that more functions will be delivered and released in the future. We are all looking forward to them.</p>
+<h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><p>There are some issues that we’ve known and we are trying to fix them.</p>
+<img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Gatekeeper.jpg" title="KDE Connect rejected by GateKeeper">
+<p>The released application package isn’t notarized and still has some lirary reference issues. So, it requires you to manually open it, if it’s rejected by Gatekeeper(package validator on macOS), like that showed in the image above.</p>
+<p>We’ll try to fix all issues and make a release which you can run it without barricade.</p>
+<h1 id="Acknowledgement"><a href="#Acknowledgement" class="headerlink" title="Acknowledgement"></a>Acknowledgement</h1><p>Thanks to KDE Community and Google, I could finish this Google Summer of Code project this summer.</p>
+<p>Thanks to members in KDE Connect development. Without them, I cannnot understand the mechanism and get it work on macOS so quickly :)</p>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>If you have any question, <a href="https://community.kde.org/KDEConnect" target="_blank" rel="noopener">KDE Connect Wiki</a> may be helpful. And you can find a bug tracker there.</p>
+<p>Don’t be hesitated to join our Telegram Group or IRC channel if you’d like to bring more exciting functions into <code>KDE Connect</code>: </p>
+<ul>
+<li><a href="https://t.me/joinchat/BRUUN0bwMhNfn8FIejA-nw" target="_blank" rel="noopener">Telegram</a></li>
+<li>IRC (#kdeconnect)</li>
+<li>matrix.org (#freenode_#kdeconnect:matrix.org)</li>
+</ul>
+<p>I wish you could enjoy the seamless experience provided by <code>KDE Connect</code> for macOS and your Android Phone!</p>
+
+			
+		</div><!-- .entry-content -->
+		
+		
+			<div class="entry-comments">
+				 
+      <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'inokinoki-kde'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  
+  
+   
+			</div>
+		
+		<footer class="entry-footer">
+			<span class="posted-on font-asesome-icon">
+	<a href="" rel="bookmark">
+	<time class="updated" datetime="2019-09-01T14:43:25.000Z">2019-09-01</time>
+	</a>
+</span>
+
+	<span class="cat-links font-asesome-icon">
+		
+				<a href="/categories/KDE-Connect/" rel="category tag">KDE Connect</a>
+		
+				<a href="/categories/KDE-Connect/macOS/" rel="category tag">macOS</a>
+		
+	</span>
+
+
+	<span class="tags-links font-asesome-icon">
+	
+		<a href="/tags/macOS/" rel="category tag">macOS</a>
+    
+		<a href="/tags/KDE-Connect/" rel="category tag">KDE Connect</a>
+    
+		<a href="/tags/GSoC/" rel="category tag">GSoC</a>
+    
+</span>
+		
+
+    <span class="eye font-asesome-icon" >
+         <span id="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/" class="leancloud_visitors" data-flag-title="KDE Connect macOS Release">
+        
+        </span>
+    </span>
+
+			<br/>
+			<a href="https://www.vultr.com/?ref=7746405"><img src="https://www.vultr.com/media/banner_1.png" width="728" height="90"></a>
+		</footer><!-- .entry-footer -->
+</article>
+<div class="misc">
+    <a href="#main"><span class="top font-asesome-icon">Top</span></a>
+</div>
+			</main>
+		</div>
+		<footer id="colophon" class="site-footer">
+			<div class="site-info">
+				<span>powered by <a href="https://hexo.io/">Hexo</a>&nbsp;&nbsp; theme by <a href="https://github.com/Troy-Yang/hexo-theme-twentyfifteen-wordpress">Troy</a> &nbsp; inspired by <a href="https://wordpress.org/themes/">wordpress</a></span>
+			</div><!-- .site-info -->
+		</footer>
+	</div>
+	<!-- <div id="infinite-footer">
+            <div class="container">
+                <div class="blog-info">
+                    <a id="infinity-blog-title" href="#" rel="home" title="Scroll back to top">
+                         Happy Coding, Happy Life!
+                    </a>
+                </div>
+                <div class="blog-credits">
+					<span>蜀ICP备15004900号-1</span>
+                </div>
+            </div>
+        </div>#infinite-footer -->
+    <!-- After footer scripts -->
+    <script src="/js/jquery-3.1.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <!--referring from https://notes.wanghao.work/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html -->
+    <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+    <script>
+        AV.initialize("QC5aQ8pUah279L1skNerLRTU-gzGzoHsz", "mhvEFRRIuPHtjNgOXAe9axsk");
+    </script>
+    <script>
+        function showTime(Counter) {
+            var query = new AV.Query(Counter);
+            $(".leancloud_visitors").each(function () {
+                var url = $(this).attr("id").trim();
+                query.equalTo("url", url);
+                query.find({
+                    success: function (results) {
+                        if (results.length == 0) {
+                            var content = $(document.getElementById(url)).text() + ': 0';
+                            $(document.getElementById(url)).text(content);
+                            return;
+                        }
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            //var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+                            $(document.getElementById(url)).text(object.get('time'));
+                        }
+                    },
+                    error: function (object, error) {
+                        console.log("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+        }
+        function addCount(Counter) {
+            var Counter = AV.Object.extend("Counter");
+            url = $(".leancloud_visitors").attr('id').trim();
+            title = $(".leancloud_visitors").attr('data-flag-title').trim();
+            var query = new AV.Query(Counter);
+            query.equalTo("url", url);
+            query.find({
+                success: function (results) {
+                    if (results.length > 0) {
+                        var counter = results[0];
+                        counter.fetchWhenSave(true);
+                        counter.increment("time");
+                        counter.save(null, {
+                            success: function (counter) {
+                                //var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(counter.get('time'));
+                            },
+                            error: function (counter, error) {
+                                console.log('Failed to save Visitor num, with error message: ' + error.message);
+                            }
+                        });
+                    } else {
+                        var newcounter = new Counter();
+                        newcounter.set("title", title);
+                        newcounter.set("url", url);
+                        newcounter.set("time", 1);
+                        newcounter.save(null, {
+                            success: function (newcounter) {
+                                console.log("newcounter.get('time')=" + newcounter.get('time'));
+                                var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+                                // remove ': '
+                                $(document.getElementById(url)).text(newcounter.get('time'));
+                            },
+                            error: function (newcounter, error) {
+                                console.log('Failed to create');
+                            }
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log('Error:' + error.code + " " + error.message);
+                }
+            });
+        }
+        $(function () {
+            var Counter = AV.Object.extend("Counter");
+            if ($('.leancloud_visitors').length == 1) {
+                addCount(Counter);
+            } else if ($('.post-title-link').length > 1) {
+                showTime(Counter);
+            }
+        });
+    </script>
+    
+
+</body>
+</html>

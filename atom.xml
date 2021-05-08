@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Inoki in KDE</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://kde.inoki.cc/"/>
+  <updated>2021-05-08T18:18:30.168Z</updated>
+  <id>http://kde.inoki.cc/</id>
+  
+  <author>
+    <name>Weixuan XIAO (Inoki)</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KDE Connect macOS Release</title>
+    <link href="http://kde.inoki.cc/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/"/>
+    <id>http://kde.inoki.cc/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/</id>
+    <published>2019-09-01T14:43:25.000Z</published>
+    <updated>2021-05-08T18:18:30.168Z</updated>
+    
+    <content type="html"><![CDATA[<p>Now it’s the end of Google Summer of Code 2019. As my GSoC project, the port of KDE Connect on macOS has made great progress. You can find and download it in my <a href="https://github.com/Inokinoki/kde-blog/releases/tag/20190901" target="_blank" rel="noopener">blog release page</a>.</p><p><strong>Note:</strong> This post aims at presenting the features of KDE Connect which have been implemented on macOS. If you’d like to know more information, such as compilation of your own KDE Connect binary on macOS, please turn to another post in my post <a href="https://kde.inoki.cc/2019/07/16/KDE-Connect-macOS/">Connect your Android phone with your Mac via KDE Connect</a>. And if you’re interested in what I’ve done during Google Summer of Code, my status report of Google Summer of Code is <a href="https://community.kde.org/GSoC/2019/StatusReports/WeixuanXiao" target="_blank" rel="noopener">HERE</a>.</p><h1 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h1><p>In this chapter, I’d like to give you a preview of all features, as well as how to configure to make some of functions work.</p><h2 id="Launch-KDE-Connect"><a href="#Launch-KDE-Connect" class="headerlink" title="Launch KDE Connect"></a>Launch KDE Connect</h2><p>First, we can click on KDE Connect application - the <code>kdeconnect-indicator.app</code> to open it.</p><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-Launch.gif" title="KDE Connect Launching"><p>Then, we can open KDE Connect configuration window from the indicator in the tray bar of macOS. </p><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-configuration.png" title="KDE Connect Configuration Window"><p>As you can see, this is the main page of KDE Connect. All available plugins are here, you can enable/disable or configure them. In addition, available devices will be listed on the left, you can choose them to pair/unpair with them/it.</p><h2 id="Functions"><a href="#Functions" class="headerlink" title="Functions"></a>Functions</h2><h3 id="Pair-notification"><a href="#Pair-notification" class="headerlink" title="Pair notification"></a>Pair notification</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-PairNotification.gif" title="KDE Connect Pair notification"><p>When you pair from your Andoid Phone, you should be able to receive a notification that shows the pair request. You can accept or reject it in the KDE Connect configuration window, or you can do it with KDE Connect indicator tray icon, there would be an entry for the pair request as well.</p><p>Otherwise, if you change the notification type of KDE Connect to <code>alert</code> in the system preference, you should also be able to do a quick action with the notification itself. Just as I showed in <a href="https://kde.inoki.cc/2019/07/18/KDE-Connect-macOS-plugin-notification/">Enable notification plugin in KDE Connect on macOS</a>.</p><p>Once paired, you can enjoy your adventure on macOS with KDE Connect!</p><h3 id="Clipboard-synchronization"><a href="#Clipboard-synchronization" class="headerlink" title="Clipboard synchronization"></a>Clipboard synchronization</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-clipboard-sync.png" title="KDE Connect Clipboard"><p>The text that you copy on your Mac will be shared to your phone, and those you copy on your phone will be also synchronized to your Mac.</p><h3 id="Notification-synchronization"><a href="#Notification-synchronization" class="headerlink" title="Notification synchronization"></a>Notification synchronization</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Kdeconnect-notification.png" title="KDE Connect Notification"><p>With KNotifications support for macOS, you can receive notification from your Android phones and react to them. You can ping your Mac to test whether they are well connected.</p><h3 id="Sending-file"><a href="#Sending-file" class="headerlink" title="Sending file"></a>Sending file</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SendFile.gif" title="KDE Connect Send file"><p>Sharing your file on your Mac with your Android phone is also a basic feature. You could also send a file from your Android phone, by default, the file will be saved in the <code>Downloads</code> folder in your Mac.</p><h3 id="System-Volume"><a href="#System-Volume" class="headerlink" title="System Volume"></a>System Volume</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-Volume.gif" title="KDE Cnnect SFTP"><p>You can control the system value of your Mac from your Android Phone remotely.</p><h3 id="SFTP"><a href="#SFTP" class="headerlink" title="SFTP"></a>SFTP</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SFTPBrowser.gif" title="KDE Cnnect SFTP"><p>With my SFTP browser, you can browse files in your Android Phone from your Mac, easily synchronize a file.</p><h3 id="SMS"><a href="#SMS" class="headerlink" title="SMS"></a>SMS</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-SMS.gif" title="KDE Connect SMS"><p>Thanks to SMS application of Simon Redman, sending and receiving SMS on your Mac are possible!</p><h3 id="Running-command"><a href="#Running-command" class="headerlink" title="Running command"></a>Running command</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-RunCommand.gif" title="KDE Connect Run command"><p>Run command from your Android phone. I believe that using AppleScript, more and more things that KDE Connect can do on macOS, will be discovered, maybe by you!</p><h3 id="Mouse-and-Keyboard"><a href="#Mouse-and-Keyboard" class="headerlink" title="Mouse and Keyboard"></a>Mouse and Keyboard</h3><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/KDEConnect-macOS-OpenMouseKeyboard.gif" title="KDE Connect Allow control"><p>You should be able to use your Android phone as a temporary trackpad and a keyboard. But it needs your permission to allow your Android phone to do it on your Mac. The GIF above shows how to do that.</p><h3 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h3><p>Except the functions shown above, you can also do these from your Android phone:</p><ul><li>Keep your Mac awake when your phone is connected</li><li>Use your phone to control your slides during a presentation</li><li>Check the battery level of your phone</li><li>Ring your phone to help find it</li></ul><p>And, you may have noticed that, in the screen capture, there are KDE Connect in dark mode and in light mode. Thanks to Qt, we are able to benefit it.</p><p>Furthermore, there is no doubt that more functions will be delivered and released in the future. We are all looking forward to them.</p><h1 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h1><p>There are some issues that we’ve known and we are trying to fix them.</p><img src="/2019/09/01/KDE-Connect-macOS-GSoC-Final-Release/Gatekeeper.jpg" title="KDE Connect rejected by GateKeeper"><p>The released application package isn’t notarized and still has some lirary reference issues. So, it requires you to manually open it, if it’s rejected by Gatekeeper(package validator on macOS), like that showed in the image above.</p><p>We’ll try to fix all issues and make a release which you can run it without barricade.</p><h1 id="Acknowledgement"><a href="#Acknowledgement" class="headerlink" title="Acknowledgement"></a>Acknowledgement</h1><p>Thanks to KDE Community and Google, I could finish this Google Summer of Code project this summer.</p><p>Thanks to members in KDE Connect development. Without them, I cannnot understand the mechanism and get it work on macOS so quickly :)</p><h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h1><p>If you have any question, <a href="https://community.kde.org/KDEConnect" target="_blank" rel="noopener">KDE Connect Wiki</a> may be helpful. And you can find a bug tracker there.</p><p>Don’t be hesitated to join our Telegram Group or IRC channel if you’d like to bring more exciting functions into <code>KDE Connect</code>: </p><ul><li><a href="https://t.me/joinchat/BRUUN0bwMhNfn8FIejA-nw" target="_blank" rel="noopener">Telegram</a></li><li>IRC (#kdeconnect)</li><li>matrix.org (#freenode_#kdeconnect:matrix.org)</li></ul><p>I wish you could enjoy the seamless experience provided by <code>KDE Connect</code> for macOS and your Android Phone!</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Now it’s the end of Google Summer of Code 2019. As my GSoC project, the port of KDE Connect on macOS has made great progress. You can fin
+      
+    
+    </summary>
+    
+      <category term="KDE Connect" scheme="http://kde.inoki.cc/categories/KDE-Connect/"/>
+    
+      <category term="macOS" scheme="http://kde.inoki.cc/categories/KDE-Connect/macOS/"/>
+    
+    
+      <category term="macOS" scheme="http://kde.inoki.cc/tags/macOS/"/>
+    
+      <category term="KDE Connect" scheme="http://kde.inoki.cc/tags/KDE-Connect/"/>
+    
+      <category term="GSoC" scheme="http://kde.inoki.cc/tags/GSoC/"/>
+    
+  </entry>
+  
+</feed>
